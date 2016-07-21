@@ -55,11 +55,48 @@ public interface IPointCloud {
      * Save a point cloud in a text file
      *
      * @param filepath The path of the file where to save the point cloud.
-     * @param color True to save the point cloud with its color, false otherwise.
+     * @param color True to save the point cloud with its color, false
+     * otherwise.
      * @throws java.io.FileNotFoundException When the file is not found.
      *
      */
     public void saveTXT(String filepath, boolean color) throws FileNotFoundException;
 
+    /**
+     * Centralise the point cloud
+     */
+    public void center();
+
+    /**
+     * Scale the cloud
+     *
+     * @param x Scale in x.
+     * @param y Scale in y.
+     * @param z Scale in z.
+     */
+    public void scale(float x, float y, float z);
+
+    /**
+     * Switch coordinate Y and Z
+     */
+    public void switchYZ();
+
+    /**
+     * Switch coordinate Z and X
+     */
+    public void switchZX();
+
+    /**
+     * Set at all points a new color
+     *
+     * @param color New color for all points.
+     */
+    public void setColor(Color color);
+
+    /**
+     * Get the extension of the file created by <code>saveBin</code>
+     * @return  The file extension.
+     */
+    public String getEXT();
 
 }
