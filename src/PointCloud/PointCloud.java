@@ -19,12 +19,17 @@
 package PointCloud;
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,15 +37,34 @@ import java.nio.file.Files;
  */
 public class PointCloud implements IPointCloud {
 
+    protected List<Point> points;
+
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
-        String txt = this.toString();
+        this.fireStartLoading();
+        //read the file
         File fileio = new File(filepath);
-        Charset charset = Charset.forName("UTF8");
-        try (BufferedWriter writer = Files.newBufferedWriter(fileio.toPath(), charset)) {
-            writer.write(txt, 0, txt.length());
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        try (BufferedReader reader = Files.newBufferedReader(fileio.toPath(),
+                StandardCharsets.UTF_8)) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                //test if the line is not a comment
+                if (line.charAt(0) != '#') {
+                    //if it not a comment, split the line in different value
+                    String[] split = line.split("\\s");
+                    PointColor p = new PointColor(Float.parseFloat(split[0]), Float.parseFloat(split[1]), Float.parseFloat(split[2]));
+                    if (split.length == 6) {
+                        p.setColor(new Color(Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5])));
+                    }
+                    this.points.add(p);
+                }
+            }
+            //send signal
+            this.fireEndLoading();
+            this.fireCloudChange();
+
+        } catch (IOException ex) {
+            Logger.getLogger(PointCloud.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -56,7 +80,14 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void saveTXT(String filepath, boolean color) throws FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String txt = this.toString();
+        File fileio = new File(filepath);
+        Charset charset = Charset.forName("UTF8");
+        try (BufferedWriter writer = Files.newBufferedWriter(fileio.toPath(), charset)) {
+            writer.write(txt, 0, txt.length());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     @Override
@@ -86,6 +117,18 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public String getEXT() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fireStartLoading() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fireEndLoading() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fireCloudChange() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
