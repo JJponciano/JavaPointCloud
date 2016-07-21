@@ -19,17 +19,29 @@
 package PointCloud;
 
 import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 /**
  *
  * @author Jean-Jacques Ponciano.
  */
-public class PointCloud  implements IPointCloud{
+public class PointCloud implements IPointCloud {
 
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String txt = this.toString();
+        File fileio = new File(filepath);
+        Charset charset = Charset.forName("UTF8");
+        try (BufferedWriter writer = Files.newBufferedWriter(fileio.toPath(), charset)) {
+            writer.write(txt, 0, txt.length());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     @Override
@@ -76,5 +88,5 @@ public class PointCloud  implements IPointCloud{
     public String getEXT() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
