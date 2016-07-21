@@ -21,7 +21,7 @@ package PointCloud;
 import java.awt.Color;
 
 /**
- * Colored point.
+ * A 3D geometric point that represents the x, y, z coordinates and a color.
  *
  * @author Jean-Jacques Ponciano
  */
