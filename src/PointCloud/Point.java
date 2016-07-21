@@ -21,7 +21,7 @@ package PointCloud;
 import pointcloud.model.base.Point3D;
 
 /**
- * Point with coordinate in x, y, and z.
+ * A 3D geometric point that represents the x, y, z coordinates
  *
  * @author Jean-Jacques Ponciano
  */
@@ -31,6 +31,13 @@ public class Point {
     protected float y;
     protected float z;
 
+    /**
+     * Creates a new instance of Point.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     */
     public Point(float x, float y, float z) {
         this.x = x;
         this.y = y;
@@ -77,6 +84,7 @@ public class Point {
         this.y = y;
     }
 
+    
     public float getZ() {
         return z;
     }
