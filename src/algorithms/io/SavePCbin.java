@@ -21,9 +21,13 @@ package algorithms.io;
 import PointCloud.Point;
 import PointCloud.PointCloud;
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 /**
  *
@@ -47,34 +51,13 @@ public class SavePCbin extends IoPointCloud {
     @Override
     public void run() {
         this.isready = false;
-        // initialization of the stream.
-        DataOutputStream oos = null;
-        try {
-            // open the stream from the file
-            oos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)));
-
-            //write the number of point
-            oos.writeInt(this.cloud.size());
-            for (Point point : this.cloud.getPoints()) {
-                // write points coordinates
-                oos.writeFloat(point.getX());
-                oos.writeFloat(point.getY());
-                oos.writeFloat(point.getZ());
-            }
-
-        } catch (final java.io.IOException e) {
-            System.err.println(e);
-        } finally {
-            try {
-                if (oos != null) {
-                    // empty the buffer
-                    oos.flush();
-                    // close the file
-                    oos.close();
-                }
-            } catch (final IOException ex) {
-                System.err.println(ex);
-            }
+        String txt = this.cloud.toString();
+        File fileio = new File(filepath);
+        Charset charset = Charset.forName("UTF8");
+        try (BufferedWriter writer = Files.newBufferedWriter(fileio.toPath(), charset)) {
+            writer.write(txt, 0, txt.length());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
         this.isready = true;
     }
