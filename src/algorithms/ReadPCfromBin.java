@@ -18,16 +18,12 @@
  */
 package algorithms;
 
-import PointCloud.PointCloud;
 import PointCloud.PointColor;
-import java.awt.Color;
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,39 +31,49 @@ import java.util.logging.Logger;
  */
 public class ReadPCfromBin extends PCreader {
 
-
+    /**
+     * Creates a new instance of <code>ReadPCfromBin</code>.
+     *
+     * @param filepath The path of the file containing the point cloud.
+     */
     public ReadPCfromBin(String filepath) {
-      super(filepath);
+        super(filepath);
     }
 
     @Override
     public void run() {
         this.isready = false;
-        PointCloud cloud = new PointCloud();
-        //read the file
-        File fileio = new File(filepath);
-        try (BufferedReader reader = Files.newBufferedReader(fileio.toPath(),
-                StandardCharsets.UTF_8)) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                //test if the line is not a comment
-                if (line.charAt(0) != '#') {
-                    //if it not a comment, split the line in different value
-                    String[] split = line.split("\\s");
-                    PointColor p = new PointColor(Float.parseFloat(split[0]), Float.parseFloat(split[1]), Float.parseFloat(split[2]));
-                    if (split.length == 6) {
-                        p.setColor(new Color(Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5])));
+        //create the file
+        File file = new File(filepath);
+        // test if the file exists
+        if (file.exists()) // if it does not exists throws a exception.
+        {
+            DataInputStream ois = null;
+            try {
+                ois = new DataInputStream(new BufferedInputStream(new FileInputStream(filepath)));
+                //read number of point
+                int nbPoint = ois.readInt();
+                //read and build each point
+                for (int i = 0; i < nbPoint; i++) {
+                    float x = ois.readFloat();
+                    float y = ois.readFloat();
+                    float z = ois.readFloat();
+                    this.cloud.add(new PointColor(x, y, z));
+                }
+                ois.close();
+            } catch (final java.io.IOException e) {
+                System.err.println(e);
+            } finally {
+                try {
+                    if (ois != null) {
+                        ois.close();
                     }
-                    cloud.add(p);
+                } catch (final IOException ex) {
+                    System.err.println(ex);
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(PointCloud.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.isready = true;
     }
-
-   
-    
 
 }

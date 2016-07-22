@@ -18,10 +18,51 @@
  */
 package algorithms;
 
+import PointCloud.PointCloud;
+import PointCloud.PointColor;
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jean-Jacques Ponciano
  */
-public class ReadPCfromTXT {
-    
+public class ReadPCfromTXT extends PCreader {
+
+    public ReadPCfromTXT(String filepath) {
+        super(filepath);
+    }
+
+    @Override
+    public void run() {
+        this.isready = false;
+        PointCloud cloud = new PointCloud();
+        //read the file
+        File fileio = new File(filepath);
+        try (BufferedReader reader = Files.newBufferedReader(fileio.toPath(),
+                StandardCharsets.UTF_8)) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                //test if the line is not a comment
+                if (line.charAt(0) != '#') {
+                    //if it not a comment, split the line in different value
+                    String[] split = line.split("\\s");
+                    PointColor p = new PointColor(Float.parseFloat(split[0]), Float.parseFloat(split[1]), Float.parseFloat(split[2]));
+                    if (split.length == 6) {
+                        p.setColor(new Color(Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5])));
+                    }
+                    cloud.add(p);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PointCloud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.isready = true;
+    }
 }

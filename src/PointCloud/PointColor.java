@@ -28,24 +28,28 @@ import java.awt.Color;
 public class PointColor extends Point {
 
     protected Color color;
-/**
- * Creates a new instance of PointColor with the white color.
- * @param x The x coordinate of the point.
- * @param y The y coordinate of the point.
- * @param z The z coordinate of the point.
- */
+
+    /**
+     * Creates a new instance of PointColor with the white color.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     */
     public PointColor(float x, float y, float z) {
         super(x, y, z);
         this.color = Color.WHITE;
     }
-/**
- * 
- * Creates a new instance of PointColor.
- * @param x The x coordinate of the point.
- * @param y The y coordinate of the point.
- * @param z The z coordinate of the point.
- * @param color The color of the point.
- */
+
+    /**
+     *
+     * Creates a new instance of PointColor.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @param color The color of the point.
+     */
     public PointColor(float x, float y, float z, Color color) {
         super(x, y, z);
         this.color = color;

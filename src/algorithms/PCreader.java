@@ -29,12 +29,19 @@ public abstract class PCreader implements IAlgorithm {
     protected String filepath;
     protected boolean isready;
     protected PointCloud cloud;
+
+    /**
+     * Creates a new instance of <code>PCreader</code>.
+     *
+     * @param filepath The path of the file containing the point cloud.
+     */
     public PCreader(String filepath) {
         this.cloud = new PointCloud();
         this.filepath = filepath;
         this.isready = true;
     }
-     @Override
+
+    @Override
     public boolean isReady() {
         return this.isready;
     }
