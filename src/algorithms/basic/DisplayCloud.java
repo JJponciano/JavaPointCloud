@@ -16,10 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package algorithms;
+package algorithms.basic;
 
 import PointCloud.PointCloud;
 import PointCloud.PointCloudView;
+import algorithms.IAlgorithm;
 import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.JDialog;
 import opengl.DrawingScene;
@@ -35,6 +36,7 @@ public class DisplayCloud implements IAlgorithm {
     protected boolean isReady;
     protected int width;
     protected int height;
+    private JDialog jd;
 
     /**
      * Creates a new instance of <code>CenterPC</code>.
@@ -59,7 +61,7 @@ public class DisplayCloud implements IAlgorithm {
         DrawingScene scene = new DrawingScene();
         PointCloudView view = new PointCloudView(this.cloud);
         scene.addObject(view);
-        JDialog jd = new JDialog();
+        this.jd = new JDialog();
         jd.setSize(this.width, this.height);
         GLCanvas canvas = scene.getCanvas(this.width, this.height);
         jd.add(canvas);
@@ -67,5 +69,36 @@ public class DisplayCloud implements IAlgorithm {
         jd.setVisible(true);
         this.isReady = true;
     }
+    /**
+     * Close the windows
+     */
+    public void close(){
+        jd.dispose();
+    }
+
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
+    public void setCloud(PointCloud cloud) {
+        this.cloud = cloud;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    
 
 }
