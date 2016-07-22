@@ -84,7 +84,6 @@ public class Point {
         this.y = y;
     }
 
-    
     public float getZ() {
         return z;
     }
@@ -129,5 +128,21 @@ public class Point {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get point's coordinates in a array.
+     *
+     * @return a array of Float representing point's coordinates.
+     * <ul>
+     * <li>0:x</li>
+     * <li>1:y</li>
+     * <li>2:z</li>
+     * </ul>
+     *
+     */
+    public float[] getArray() {
+        float[] array = {this.x, this.y, this.z};
+        return array;
     }
 }

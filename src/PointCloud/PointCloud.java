@@ -48,7 +48,6 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
-        this.fireStartLoading();
         //read the file
         File fileio = new File(filepath);
         try (BufferedReader reader = Files.newBufferedReader(fileio.toPath(),
@@ -66,10 +65,6 @@ public class PointCloud implements IPointCloud {
                     this.points.add(p);
                 }
             }
-            //send signal
-            this.fireEndLoading();
-            this.fireCloudChange();
-
         } catch (IOException ex) {
             Logger.getLogger(PointCloud.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,7 +72,6 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void loadBin(String filepath) throws FileNotFoundException {
-            this.fireStartLoading();
         //create the file
         File file = new File(filepath);
         // test if the file exists
@@ -110,15 +104,10 @@ public class PointCloud implements IPointCloud {
                 System.err.println(ex);
             }
         }
-        //send signal
-        this.fireCloudChange();
-        //send signal
-        this.fireEndLoading();
     }
 
     @Override
     public void saveBin(String filepath) {
-        this.fireStartSaving();
         // initialization of the stream.
         DataOutputStream oos = null;
         try {
@@ -148,7 +137,6 @@ public class PointCloud implements IPointCloud {
                 System.err.println(ex);
             }
         }
-        this.fireEndSaving();
     }
 
     @Override
@@ -165,7 +153,15 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void center() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if (this.points.size() > 0) {
+            float[] orig = this.points.get(0).getArray();
+            for (int i = 1; i < this.points.size(); i++) {
+                this.points.get(i).setX(this.points.get(i).getX() - orig[0]);
+                this.points.get(i).setY(this.points.get(i).getY() - orig[1]);
+                this.points.get(i).setZ(this.points.get(i).getZ() - orig[2]);
+
+            }
+        }
     }
 
     @Override
@@ -192,25 +188,4 @@ public class PointCloud implements IPointCloud {
     public String getEXT() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    private void fireStartLoading() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void fireEndLoading() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void fireCloudChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void fireEndSaving() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void fireStartSaving() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
