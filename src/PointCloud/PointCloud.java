@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  */
 public class PointCloud implements IPointCloud {
 
-    protected ArrayList<Point> points;
+    protected ArrayList<PointColor> points;
 
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
@@ -90,7 +90,7 @@ public class PointCloud implements IPointCloud {
                 float x = ois.readFloat();
                 float y = ois.readFloat();
                 float z = ois.readFloat();
-                this.points.add(new Point(x, y, z));
+                this.points.add(new PointColor(x, y, z));
             }
             ois.close();
         } catch (final java.io.IOException e) {
@@ -185,7 +185,9 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void setColor(Color color) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          for (int i = 0; i < this.points.size(); i++) {
+            this.points.get(i).setColor(color);
+        }
     }
 
     @Override
