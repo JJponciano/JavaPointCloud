@@ -30,11 +30,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Load a point cloud from a text file
  *
  * @author Jean-Jacques Ponciano
  */
 public class ReadPCfromTXT extends PCreader {
 
+    /**
+     * Creates a new instance of <code>ReadPCfromTXT</code>.
+     *
+     * @param filepath The path of the file containing the point cloud.
+     */
     public ReadPCfromTXT(String filepath) {
         super(filepath);
     }

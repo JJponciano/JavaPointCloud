@@ -35,7 +35,9 @@ public class PointCloudView implements IPointCloudListener {
     private IntBuffer indice;
     private int indiceCount;
     private int nbPoints;
-
+/**
+ * Creates a new instance of <code>PointCloudView</code>.
+ */
     public PointCloudView() {
         this.nbPoints = 0;
         this.indiceCount = 0;

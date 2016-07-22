@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 jean-jacques.poncian.
+ * Copyright (C) 2016 Jean-Jacques Ponciano.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,14 @@ package algorithms;
 
 /**
  *
- * @author jean-jacques.poncian
+ * @author Jean-Jacques Ponciano
  */
 public interface IAlgorithm extends Runnable {
-/**
- * Say is the algorithm is ready to run of not
- * @return true if the algorithm has finished it task, false otherwise.
- */
+
+    /**
+     * Say is the algorithm is ready to run of not
+     *
+     * @return true if the algorithm has finished it task, false otherwise.
+     */
     public boolean isReady();
 }

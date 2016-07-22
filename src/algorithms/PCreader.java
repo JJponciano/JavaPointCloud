@@ -49,7 +49,7 @@ public abstract class PCreader implements IAlgorithm {
     /**
      * Get the point cloud read.
      *
-     * @return the point cloud read.
+     * @return The point cloud read.
      */
     public PointCloud getCloud() {
         return cloud;

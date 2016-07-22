@@ -46,6 +46,9 @@ public class PointCloud implements IPointCloud {
     protected ArrayList<PointColor> points;
     protected final String ext;
 
+    /**
+     * Creates a new instance of <code>PointCloud</code>.
+     */
     public PointCloud() {
         this.ext = "pc";
         this.points = new ArrayList<>();
