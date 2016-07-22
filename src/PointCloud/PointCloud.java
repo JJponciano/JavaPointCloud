@@ -57,7 +57,9 @@ public class PointCloud {
      * @param p point to be added.
      */
     public void add(PointColor p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (p != null) {
+            this.points.add(p);
+        }
     }
 
     /**
@@ -65,17 +67,17 @@ public class PointCloud {
      *
      * @return all points in the point cloud
      */
-    public Iterable<Point> getPoints() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterable<PointColor> getPoints() {
+        return (Iterable<PointColor>) this.points.iterator();
     }
 
     /**
      * Size of the point cloud
      *
-     * @return The number of points contained in the point cloud.
+     * @return The number of points in the point cloud.
      */
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.points.size();
     }
 
     /**
@@ -86,7 +88,11 @@ public class PointCloud {
      * if no point is found.
      */
     public PointColor get(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (i >= 0 && i < this.size()) {
+            return this.points.get(i);
+        } else {
+            return null;
+        }
     }
 
 }
