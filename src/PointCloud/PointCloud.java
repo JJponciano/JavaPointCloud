@@ -153,7 +153,7 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void center() {
-         if (this.points.size() > 0) {
+        if (this.points.size() > 0) {
             float[] orig = this.points.get(0).getArray();
             for (int i = 1; i < this.points.size(); i++) {
                 this.points.get(i).setX(this.points.get(i).getX() - orig[0]);
@@ -166,7 +166,11 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void scale(float x, float y, float z) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.points.size(); i++) {
+            this.points.get(i).setX(this.points.get(i).getX() * x);
+            this.points.get(i).setY(this.points.get(i).getY() * y);
+            this.points.get(i).setZ(this.points.get(i).getZ() * z);
+        }
     }
 
     @Override
