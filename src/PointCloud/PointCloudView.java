@@ -20,7 +20,6 @@ package PointCloud;
 
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL2;
-import java.awt.Color;
 import java.util.List;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -93,7 +92,7 @@ public class PointCloudView implements IPointCloudListener {
                 gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
                 gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
             } catch (java.lang.RuntimeException e) {
-                System.err.println("empty cloud");
+                System.err.println("Empty cloud");
             }
         }
     }
