@@ -20,41 +20,51 @@ package PointCloud;
 
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL2;
-import java.util.List;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import opengl.objects.IObjectGL;
 
 /**
  *
  * @author Jean-Jacques Ponciano
  */
-public class PointCloudView implements IPointCloudListener {
+public class PointCloudView implements IPointCloudListener, IObjectGL {
 
     private FloatBuffer vertex;
     private FloatBuffer color;
     private IntBuffer indice;
     private int indiceCount;
     private int nbPoints;
-/**
- * Creates a new instance of <code>PointCloudView</code>.
- */
+
+    /**
+     * Creates a new instance of <code>PointCloudView</code>.
+     */
     public PointCloudView() {
         this.nbPoints = 0;
         this.indiceCount = 0;
     }
+/**
+ * Creates a new instance of <code>PointCloudView</code>.
+ * @param cloud update the view with the cloud given.
+ */
+    public PointCloudView(PointCloud cloud) {
+        this.nbPoints = 0;
+        this.indiceCount = 0;
+        this.updateCloud(cloud);
+    }
 
     @Override
-    public void updateCloud(List<PointColor> points) {
-        this.nbPoints = points.size();
+    public void updateCloud(PointCloud cloud) {
+        this.nbPoints = cloud.size();
         if (this.nbPoints > 0) {
             //init all arrays
-            int[] indiceArray = new int[points.size()];
-            float[] colorArray = new float[points.size() * 3];
-            float[] vertexArray = new float[points.size() * 3];
+            int[] indiceArray = new int[cloud.size()];
+            float[] colorArray = new float[cloud.size() * 3];
+            float[] vertexArray = new float[cloud.size() * 3];
             int i = 0;//indice index
             int j = 0;//color and vertex index
             //fill arrays
-            for (PointColor point : points) {
+            for (PointColor point : cloud.getPoints()) {
                 indiceArray[i] = i;
                 i++;
                 vertexArray[j] = point.getX();
@@ -80,6 +90,7 @@ public class PointCloudView implements IPointCloudListener {
      *
      * @param gl GL to draw the the point cloud.
      */
+    @Override
     public void displayGL(GL2 gl) {
         if (this.nbPoints > 0) {
             try {

@@ -19,7 +19,6 @@
 package PointCloud;
 
 import java.util.EventListener;
-import java.util.List;
 
 /**
  *
@@ -33,6 +32,6 @@ public interface IPointCloudListener extends EventListener {
      *
      * @param points point cloud after the changing.
      */
-    public void updateCloud(List<PointColor> points);
+    public void updateCloud(PointCloud cloud);
 
 }
