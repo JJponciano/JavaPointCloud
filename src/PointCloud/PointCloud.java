@@ -20,12 +20,15 @@ package PointCloud;
 
 import java.awt.Color;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -115,7 +118,37 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void saveBin(String filepath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.fireStartSaving();
+        // initialization of the stream.
+        DataOutputStream oos = null;
+        try {
+            // open the stream from the file
+            oos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)));
+
+            //write the number of point
+            oos.writeInt(points.size());
+            for (Point point : points) {
+                // write points coordinates
+                oos.writeFloat(point.getX());
+                oos.writeFloat(point.getY());
+                oos.writeFloat(point.getZ());
+            }
+
+        } catch (final java.io.IOException e) {
+            System.err.println(e);
+        } finally {
+            try {
+                if (oos != null) {
+                    // empty the buffer
+                    oos.flush();
+                    // close the file
+                    oos.close();
+                }
+            } catch (final IOException ex) {
+                System.err.println(ex);
+            }
+        }
+        this.fireEndSaving();
     }
 
     @Override
@@ -169,6 +202,14 @@ public class PointCloud implements IPointCloud {
     }
 
     private void fireCloudChange() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fireEndSaving() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fireStartSaving() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
