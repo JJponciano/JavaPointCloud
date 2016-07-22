@@ -78,7 +78,31 @@ public class PointColor extends Point {
         return s;
     }
 
-    public void set(int c1, float f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Modification of the value of the coordinate represented by c1.
+     *
+     * @param c1 the representations of the coordinate
+     * <ol>
+     * <li>0:x</li>
+     * <li>1:y</li>
+     * <li>2:z</li>
+     * </ol>
+     * @param value new value of the coordinate.
+     */
+    public void set(int c1, float value) {
+        switch (c1) {
+            case 0:
+                this.x = value;
+                break;
+            case 1:
+                this.y = value;
+                break;
+            case 2:
+                this.z = value;
+                break;
+            default:
+                break;
+        }
+
     }
 }
