@@ -28,13 +28,11 @@ import java.util.ArrayList;
 public class PointCloud {
 
     protected ArrayList<PointColor> points;
-    protected final String ext;
 
     /**
      * Creates a new instance of <code>PointCloud</code>.
      */
     public PointCloud() {
-        this.ext = "pc";
         this.points = new ArrayList<>();
     }
 
