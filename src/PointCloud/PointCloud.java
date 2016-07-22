@@ -219,4 +219,8 @@ public class PointCloud implements IPointCloud {
         return buff.toString();
     }
 
+    public void add(PointColor p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

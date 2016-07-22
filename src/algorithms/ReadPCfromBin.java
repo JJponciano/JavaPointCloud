@@ -23,7 +23,6 @@ import PointCloud.PointColor;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -34,9 +33,16 @@ import java.util.logging.Logger;
  *
  * @author Jean-Jacques Ponciano
  */
-public class ReadPCfromBin {
+public class ReadPCfromBin extends PCreader {
 
-    public PointCloud loadTXT(String filepath) throws FileNotFoundException {
+
+    public ReadPCfromBin(String filepath) {
+      super(filepath);
+    }
+
+    @Override
+    public void run() {
+        this.isready = false;
         PointCloud cloud = new PointCloud();
         //read the file
         File fileio = new File(filepath);
@@ -58,6 +64,10 @@ public class ReadPCfromBin {
         } catch (IOException ex) {
             Logger.getLogger(PointCloud.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cloud;
+        this.isready = true;
     }
+
+   
+    
+
 }
