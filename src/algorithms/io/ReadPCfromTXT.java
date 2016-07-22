@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package algorithms;
+package algorithms.io;
 
 import PointCloud.PointCloud;
 import PointCloud.PointColor;
