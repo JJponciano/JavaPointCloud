@@ -51,18 +51,40 @@ public class PointCloud {
         return buff.toString();
     }
 
+    /**
+     * Add a point in the point cloud.
+     *
+     * @param p point to be added.
+     */
     public void add(PointColor p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get all points in a <code>Iterable<Point></code>
+     *
+     * @return all points in the point cloud
+     */
     public Iterable<Point> getPoints() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Size of the point cloud
+     *
+     * @return The number of points contained in the point cloud.
+     */
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the ith point in the point cloud.
+     *
+     * @param i point position in the point cloud
+     * @return the point locate at the ith position in the point cloud or null
+     * if no point is found.
+     */
     public PointColor get(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
