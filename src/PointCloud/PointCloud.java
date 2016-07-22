@@ -45,6 +45,12 @@ import java.util.logging.Logger;
 public class PointCloud implements IPointCloud {
 
     protected ArrayList<PointColor> points;
+    protected final String ext;
+
+    public PointCloud() {
+        this.ext = "pc";
+        this.points = new ArrayList<>();
+    }
 
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
@@ -175,23 +181,43 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void switchYZ() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.points.size(); i++) {
+            float y = this.points.get(i).getY();
+            this.points.get(i).setY(this.points.get(i).getZ());
+            this.points.get(i).setZ(y);
+
+        }
     }
 
     @Override
     public void switchZX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.points.size(); i++) {
+            float z = this.points.get(i).getZ();
+            this.points.get(i).setZ(this.points.get(i).getX());
+            this.points.get(i).setX(z);
+
+        }
     }
 
     @Override
     public void setColor(Color color) {
-          for (int i = 0; i < this.points.size(); i++) {
+        for (int i = 0; i < this.points.size(); i++) {
             this.points.get(i).setColor(color);
         }
     }
 
     @Override
     public String getEXT() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.ext;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer buff = new StringBuffer();
+        for (PointColor point : points) {
+            buff.append(point.toString()).append("\n");
+        }
+        return buff.toString();
+    }
+
 }
