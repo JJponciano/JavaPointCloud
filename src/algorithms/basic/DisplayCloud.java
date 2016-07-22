@@ -69,11 +69,13 @@ public class DisplayCloud implements IAlgorithm {
         jd.setVisible(true);
         this.isReady = true;
     }
+
     /**
      * Close the windows
      */
-    public void close(){
+    public void close() {
         jd.dispose();
+        this.isReady = true;
     }
 
     public PointCloud getCloud() {
@@ -99,6 +101,5 @@ public class DisplayCloud implements IAlgorithm {
     public void setHeight(int height) {
         this.height = height;
     }
-    
 
 }

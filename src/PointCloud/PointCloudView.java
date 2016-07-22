@@ -43,10 +43,12 @@ public class PointCloudView implements IPointCloudListener, IObjectGL {
         this.nbPoints = 0;
         this.indiceCount = 0;
     }
-/**
- * Creates a new instance of <code>PointCloudView</code>.
- * @param cloud update the view with the cloud given.
- */
+
+    /**
+     * Creates a new instance of <code>PointCloudView</code>.
+     *
+     * @param cloud update the view with the cloud given.
+     */
     public PointCloudView(PointCloud cloud) {
         this.nbPoints = 0;
         this.indiceCount = 0;
@@ -55,33 +57,35 @@ public class PointCloudView implements IPointCloudListener, IObjectGL {
 
     @Override
     public void updateCloud(PointCloud cloud) {
-        this.nbPoints = cloud.size();
-        if (this.nbPoints > 0) {
-            //init all arrays
-            int[] indiceArray = new int[cloud.size()];
-            float[] colorArray = new float[cloud.size() * 3];
-            float[] vertexArray = new float[cloud.size() * 3];
-            int i = 0;//indice index
-            int j = 0;//color and vertex index
-            //fill arrays
-            for (PointColor point : cloud.getPoints()) {
-                indiceArray[i] = i;
-                i++;
-                vertexArray[j] = point.getX();
-                colorArray[j] = (float) (point.getColor().getRed() / 255.0f);
-                j++;
-                vertexArray[j] = point.getY();
-                colorArray[j] = (float) (point.getColor().getGreen() / 255.0f);
-                j++;
-                vertexArray[j] = point.getZ();
-                colorArray[j] = (float) (point.getColor().getBlue() / 255.0f);
-                j++;
+        if (cloud != null) {
+            this.nbPoints = cloud.size();
+            if (this.nbPoints > 0) {
+                //init all arrays
+                int[] indiceArray = new int[cloud.size()];
+                float[] colorArray = new float[cloud.size() * 3];
+                float[] vertexArray = new float[cloud.size() * 3];
+                int i = 0;//indice index
+                int j = 0;//color and vertex index
+                //fill arrays
+                for (PointColor point : cloud.getPoints()) {
+                    indiceArray[i] = i;
+                    i++;
+                    vertexArray[j] = point.getX();
+                    colorArray[j] = (float) (point.getColor().getRed() / 255.0f);
+                    j++;
+                    vertexArray[j] = point.getY();
+                    colorArray[j] = (float) (point.getColor().getGreen() / 255.0f);
+                    j++;
+                    vertexArray[j] = point.getZ();
+                    colorArray[j] = (float) (point.getColor().getBlue() / 255.0f);
+                    j++;
+                }
+                //fill buffer
+                this.vertex = Buffers.newDirectFloatBuffer(vertexArray);
+                this.color = Buffers.newDirectFloatBuffer(colorArray);
+                this.indice = Buffers.newDirectIntBuffer(indiceArray);
+                this.indiceCount = indiceArray.length;
             }
-            //fill buffer
-            this.vertex = Buffers.newDirectFloatBuffer(vertexArray);
-            this.color = Buffers.newDirectFloatBuffer(colorArray);
-            this.indice = Buffers.newDirectIntBuffer(indiceArray);
-            this.indiceCount = indiceArray.length;
         }
     }
 
