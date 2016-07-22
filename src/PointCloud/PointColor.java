@@ -77,4 +77,8 @@ public class PointColor extends Point {
                 + this.color.getRed() + "\t" + this.color.getGreen() + "\t" + this.color.getBlue();
         return s;
     }
+
+    public void set(int c1, float f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
