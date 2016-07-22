@@ -22,22 +22,52 @@ import PointCloud.PointCloud;
 import algorithms.IAlgorithm;
 
 /**
- * A algorithm to switch both coordinates in a point cloud 
+ * A algorithm to switch both coordinates in a point cloud.
+ *
  * @author Jean-Jacques Ponciano.
  */
 public class SwitchPCcoord implements IAlgorithm {
 
     protected PointCloud cloud;
     protected boolean isReady;
+    protected int c1;
+    protected int c2;
+
+    /**
+     * Creates a new instance of <code>SwitchPCcoord</code>.
+     *
+     * @param cloud cloud to be switch two coordinates.
+     * @param c1 first coordinate to be switched with the second.
+     * @param c2 second coordinate to be switched with the first.
+     * <ol>
+     * <li>0:x</li>
+     * <li>1:y</li>
+     * <li>2:z</li>
+     * </ol>
+     */
+    public SwitchPCcoord(PointCloud cloud, int c1, int c2) {
+        this.cloud = cloud;
+        this.c1 = c1;
+        this.c2 = c2;
+    }
 
     @Override
     public boolean isReady() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.isReady;
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.cloud.size(); i++) {
+            float z = this.cloud.get(i).getArray()[c1];
+            this.cloud.get(i).set(c1, this.cloud.get(i).getArray()[c2]);
+            this.cloud.get(i).set(c2, z);
+
+        }
     }
-    
+
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
 }
