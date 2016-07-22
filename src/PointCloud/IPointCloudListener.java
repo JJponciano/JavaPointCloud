@@ -35,15 +35,4 @@ public interface IPointCloudListener extends EventListener {
      */
     public void updateCloud(List<PointColor> points);
 
-    public void startLoading();
-
-    public void endLoading();
-
-    public void startSaving();
-
-    public void endSaving();
-
-    public void endProcessing();
-
-    public void startProcessing();
 }
