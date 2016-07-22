@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 jean-jacques.poncian.
+ * Copyright (C) 2016 Jean-Jacques Ponciano.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,33 @@ package algorithms;
 
 /**
  *
- * @author jean-jacques.poncian
+ * @author Jean-Jacques Ponciano
  */
-public class IoPointCloud {
+public abstract class IoPointCloud implements IAlgorithm{
+    protected String filepath;
+    protected boolean isready;
+
+    /**
+     * Creates a new instance of <code>IoPointCloud</code>.
+     *
+     * @param filepath The path of the file containing the point cloud.
+     */
+    public IoPointCloud(String filepath) {
+        this.filepath = filepath;
+        this.isready = true;
+    }
+
+    @Override
+    public boolean isReady() {
+        return this.isready;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
     
 }

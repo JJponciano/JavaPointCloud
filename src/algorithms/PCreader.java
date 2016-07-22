@@ -24,10 +24,9 @@ import PointCloud.PointCloud;
  *
  * @author Jean-Jacques Ponciano
  */
-public abstract class PCreader implements IAlgorithm {
+public abstract class PCreader extends IoPointCloud {
 
-    protected String filepath;
-    protected boolean isready;
+
     protected PointCloud cloud;
 
     /**
@@ -36,14 +35,8 @@ public abstract class PCreader implements IAlgorithm {
      * @param filepath The path of the file containing the point cloud.
      */
     public PCreader(String filepath) {
+        super(filepath);
         this.cloud = new PointCloud();
-        this.filepath = filepath;
-        this.isready = true;
-    }
-
-    @Override
-    public boolean isReady() {
-        return this.isready;
     }
 
     /**
