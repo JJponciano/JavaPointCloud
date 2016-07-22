@@ -19,14 +19,18 @@
 package PointCloud;
 
 import java.awt.Color;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +41,7 @@ import java.util.logging.Logger;
  */
 public class PointCloud implements IPointCloud {
 
-    protected List<Point> points;
+    protected ArrayList<Point> points;
 
     @Override
     public void loadTXT(String filepath) throws FileNotFoundException {
@@ -70,7 +74,43 @@ public class PointCloud implements IPointCloud {
 
     @Override
     public void loadBin(String filepath) throws FileNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            this.fireStartLoading();
+        //create the file
+        File file = new File(filepath);
+        // test if the file exists
+        if (!file.exists()) // if it does not exists throws a exception.
+        {
+            throw new java.io.FileNotFoundException("the file with the path " + filepath + "does not found");
+        }
+        DataInputStream ois = null;
+        try {
+            ois = new DataInputStream(new BufferedInputStream(new FileInputStream(filepath)));
+            //read number of point
+            int nbPoint = ois.readInt();
+            this.points.clear();
+            //read and build each point
+            for (int i = 0; i < nbPoint; i++) {
+                float x = ois.readFloat();
+                float y = ois.readFloat();
+                float z = ois.readFloat();
+                this.points.add(new Point(x, y, z));
+            }
+            ois.close();
+        } catch (final java.io.IOException e) {
+            System.err.println(e);
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (final IOException ex) {
+                System.err.println(ex);
+            }
+        }
+        //send signal
+        this.fireCloudChange();
+        //send signal
+        this.fireEndLoading();
     }
 
     @Override
