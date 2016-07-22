@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 jean-jacques.poncian.
+ * Copyright (C) 2016 Jean-Jacques Ponciano.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package algorithms;
 
 /**
  *
- * @author jean-jacques.poncian
+ * @author Jean-Jacques Ponciano
  */
 public class ReadPCfromTXT {
     
