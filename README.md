@@ -1,2 +1,2 @@
 # JavaPointCloud
-java point cloud is a open project for point cloud processing
+Java Point Cloud is an open project for point cloud processing.
