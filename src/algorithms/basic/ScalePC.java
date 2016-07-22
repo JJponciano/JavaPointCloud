@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 jean-jacques.poncian.
+ * Copyright (C) 2016 Jean-Jacques Ponciano.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,53 @@
  */
 package algorithms.basic;
 
+import PointCloud.PointCloud;
+import algorithms.IAlgorithm;
+
 /**
+ * A algorithm to scale a point cloud.
  *
- * @author jean-jacques.poncian
+ * @author Jean-Jacques Ponciano.
  */
-public class ScalePC {
-    
+public class ScalePC implements IAlgorithm {
+
+    protected PointCloud cloud;
+    protected boolean isReady;
+    protected float x, y, z;
+
+    /**
+     * Creates a new instance of <code>ScalePC</code>.
+     *
+     *
+     * @param cloud cloud to be scaled.
+     * @param x Scale in x.
+     * @param y Scale in y.
+     * @param z Scale in z.
+     */
+    public ScalePC(PointCloud cloud, float x, float y, float z) {
+        this.isReady = true;
+        this.cloud = cloud;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    @Override
+    public boolean isReady() {
+        return this.isReady;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < this.cloud.size(); i++) {
+            this.cloud.get(i).setX(this.cloud.get(i).getX() * x);
+            this.cloud.get(i).setY(this.cloud.get(i).getY() * y);
+            this.cloud.get(i).setZ(this.cloud.get(i).getZ() * z);
+        }
+    }
+
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
 }

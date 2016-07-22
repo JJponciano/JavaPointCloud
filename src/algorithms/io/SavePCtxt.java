@@ -33,7 +33,7 @@ public class SavePCtxt extends IoPointCloud {
        protected PointCloud cloud;
 
     /**
-     * Creates a new instance of <code>SavePCbin</code>.
+     * Creates a new instance of <code>SavePCtxt</code>.
      *
      * @param cloud cloud to be saved.
      * @param filepath The path of the file containing the point cloud.
