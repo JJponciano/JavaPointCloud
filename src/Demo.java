@@ -1,6 +1,7 @@
 
 import algorithms.basic.CenterPC;
 import algorithms.basic.DisplayCloud;
+import algorithms.basic.ScalePC;
 import algorithms.io.ReadPCfromTXT;
 import java.util.Scanner;
 
@@ -62,6 +63,15 @@ public class Demo {
                     CenterPC center = new CenterPC(reader.getCloud());
                     center.run();
                     instance = new DisplayCloud(center.getCloud(), 1000, 1000);
+                    instance.run();
+                    //----------------------------------------------------------
+                }
+                case "s": {
+                    //Demo CenterPC
+                    //----------------------------------------------------------
+                    ScalePC scale = new ScalePC(reader.getCloud(),2,2,1);
+                    scale.run();
+                    instance = new DisplayCloud(scale.getCloud(), 1000, 1000);
                     instance.run();
                     //----------------------------------------------------------
                 }
