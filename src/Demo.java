@@ -35,13 +35,9 @@ public class Demo {
         Demo demo = new Demo();
         demo.demoDisplayCloud();
         System.out.println("Display table");
-        Scanner sc = new Scanner(System.in);
-        String str = "";
-        while (!str.toLowerCase().contains("q")) {
-            System.out.println("Exit(Q)");
-            str = sc.nextLine();
-        }
-        System.exit(0);
+        demo.exit("Q");
+       
+        
     }
 
     /**
@@ -57,4 +53,13 @@ public class Demo {
         instance.run();
     }
 
+    public void exit(String expression){
+         Scanner sc = new Scanner(System.in);
+           String str = "";
+        while (!str.toLowerCase().contains(expression.toLowerCase())) {
+            System.out.println("Exit:"+"("+expression+")");
+            str = sc.nextLine();
+        }
+        System.exit(0);
+    }
 }
