@@ -50,7 +50,7 @@ public class CenterPC implements IAlgorithm {
     public void run() {
         if (this.cloud.size() > 0) {
             float[] orig = this.cloud.get(0).getArray();
-            for (int i = 1; i < this.cloud.size(); i++) {
+            for (int i = 0; i < this.cloud.size(); i++) {
                 this.cloud.get(i).setX(this.cloud.get(i).getX() - orig[0]);
                 this.cloud.get(i).setY(this.cloud.get(i).getY() - orig[1]);
                 this.cloud.get(i).setZ(this.cloud.get(i).getZ() - orig[2]);
