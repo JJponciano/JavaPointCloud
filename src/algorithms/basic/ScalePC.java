@@ -22,7 +22,7 @@ import PointCloud.PointCloud;
 import algorithms.IAlgorithm;
 
 /**
- * A algorithm to scale a point cloud.
+ * ScalePC is an algorithm allowing for scaling a point cloud.
  *
  * @author Jean-Jacques Ponciano.
  */
