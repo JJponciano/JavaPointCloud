@@ -48,7 +48,6 @@ public class ReadPCfromTXT extends PCreader {
     @Override
     public void run() {
         this.isready = false;
-        PointCloud cloud = new PointCloud();
         //read the file
         File fileio = new File(filepath);
         try (BufferedReader reader = Files.newBufferedReader(fileio.toPath(),
@@ -63,7 +62,7 @@ public class ReadPCfromTXT extends PCreader {
                     if (split.length == 6) {
                         p.setColor(new Color(Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5])));
                     }
-                    cloud.add(p);
+                    this.cloud.add(p);
                 }
             }
         } catch (IOException ex) {
