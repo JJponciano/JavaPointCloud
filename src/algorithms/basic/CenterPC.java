@@ -22,7 +22,7 @@ import PointCloud.PointCloud;
 import algorithms.IAlgorithm;
 
 /**
- * A algorithm to center a point cloud.
+ * CenterPC is an algorithm allowing for moving a point cloud at the origin point of the scene.
  *
  * @author Jean-Jacques Ponciano.
  */

@@ -1,4 +1,5 @@
 
+import algorithms.basic.CenterPC;
 import algorithms.basic.DisplayCloud;
 import algorithms.io.ReadPCfromTXT;
 import java.util.Scanner;
@@ -31,35 +32,49 @@ public class Demo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Demo DisplayCloud
-        Demo demo = new Demo();
-        demo.demoDisplayCloud();
-        System.out.println("Display table");
-        demo.exit("Q");
-       
-        
-    }
 
-    /**
-     * Demonstration of the algorithm <code>DisplayCloud</code>
-     */
-    public void demoDisplayCloud() {
+        //Demo ReadPCfromTXT
+        //----------------------------------------------------------------------
         String pathfile = "E:\\Data\\table.txt";
         //read the point cloud in a windows.
         ReadPCfromTXT reader = new ReadPCfromTXT(pathfile);
         reader.run();
+        //----------------------------------------------------------------------
+        //Demo DisplayCloud
+        //----------------------------------------------------------------------
         //display the point cloud
         DisplayCloud instance = new DisplayCloud(reader.getCloud(), 1000, 1000);
         instance.run();
+        //----------------------------------------------------------------------
+        Scanner sc = new Scanner(System.in);
+        String str = "";
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("Exit:(q)");
+            System.out.println("Center:(c)");
+            str = sc.nextLine().toLowerCase();
+            switch (str) {
+                case "q":
+                    System.exit(0);
+                case "c": {
+                    //Demo CenterPC
+                    //----------------------------------------------------------
+                    CenterPC center = new CenterPC(reader.getCloud());
+                    center.run();
+                    instance = new DisplayCloud(center.getCloud(), 1000, 1000);
+                    instance.run();
+                    //----------------------------------------------------------
+                }
+            }
+        }
+
     }
 
-    public void exit(String expression){
-         Scanner sc = new Scanner(System.in);
-           String str = "";
-        while (!str.toLowerCase().contains(expression.toLowerCase())) {
-            System.out.println("Exit:"+"("+expression+")");
-            str = sc.nextLine();
-        }
-        System.exit(0);
+    public void demoDisplayCloud() {
+
+    }
+
+    public void exit(String expression) {
+
     }
 }
