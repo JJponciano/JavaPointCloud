@@ -22,7 +22,18 @@ import PointCloud.PointCloud;
 import algorithms.IAlgorithm;
 
 /**
- * CenterPC is an algorithm allowing for moving a point cloud at the origin point of the scene.
+ * CenterPC is an algorithm allowing for moving a point cloud at the origin
+ * point of the scene.
+ * <h3>Example</h3>
+ * <code>
+ * String pathfile = "table.txt";<br/>
+ * //read the point cloud.<br/>
+ * ReadPCfromTXT reader = new ReadPCfromTXT(pathfile);<br/>
+ * reader.run();<br/>
+ * //center the point cloud.<br/>
+ * CenterPC center = new CenterPC(reader.getCloud());<br/>
+ * center.run();
+ * </code>
  *
  * @author Jean-Jacques Ponciano.
  */
