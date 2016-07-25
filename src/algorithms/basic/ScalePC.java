@@ -23,7 +23,16 @@ import algorithms.IAlgorithm;
 
 /**
  * ScalePC is an algorithm allowing for scaling a point cloud.
- *
+ *<h3>Example</h3>
+ * <code>
+ * String pathfile = "table.txt";<br/>
+ * //read the point cloud.<br/>
+ * ReadPCfromTXT reader = new ReadPCfromTXT(pathfile);<br/>
+ * reader.run();<br/>
+ * //center the point cloud.<br/>
+ * ScalePC scale = new ScalePC(reader.getCloud(),0.1f,2,1);<br/>
+ * scale.run();
+ * </code>
  * @author Jean-Jacques Ponciano.
  */
 public class ScalePC implements IAlgorithm {
