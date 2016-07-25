@@ -31,14 +31,14 @@ import jna.CInterface;
 * delete[]pVals;<br/>
 *}<br/>
 * extern "C" __declspec(dllexport) void processing(float **xOut,float
-* **yOut,float **zOut,int *lengthOut,const float* xInt,const float*
-* yInt,const float* zInt, int lengthInt)<br/>
+* **yOut,float **zOut,int *lengthOut,const float* xIn,const float*
+* yIn,const float* zIn, int lengthIn)<br/>
 * {<br/>
 * //set the result with the values of the input cloud. <br/>
-* *xOut=xInt; <br/>
-* *yOut=yInt; <br/>
-* *zOut=zInt; <br/>
-* *lengthOut=lengthInt;<br/>
+* *xOut=xIn; <br/>
+* *yOut=yIn; <br/>
+* *zOut=zIn; <br/>
+* *lengthOut=lengthIn;<br/>
 * }<br/>
 * extern "C" __declspec(dllexport) bool isOK(){<br/>
 * return true;<br/>
@@ -49,8 +49,8 @@ import jna.CInterface;
 * <p>
 * <code>
 * void processing(PointerByReference xOut,PointerByReference yOut,
-* PointerByReferencezOut,IntByReference lengthOut,Pointer  xInt,
-* Pointer yInt,Pointer zInt, int lengthInt)
+* PointerByReferencezOut,IntByReference lengthOut,Pointer  xIn,
+* Pointer yIn,Pointer zIn, int lengthIn)
 * </code>
 * </p>
 * @author  Jean-Jacques Ponciano
