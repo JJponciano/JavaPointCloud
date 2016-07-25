@@ -20,6 +20,7 @@ package PointCloud;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -33,7 +34,7 @@ public class PointCloud {
      * Creates a new instance of <code>PointCloud</code>.
      */
     public PointCloud() {
-        this.points = new ArrayList<>();
+        this.points = new ArrayList<PointColor>();
     }
 
     public void setColor(Color color) {
@@ -63,12 +64,14 @@ public class PointCloud {
     }
 
     /**
-     * Get all points in a <code>Iterable<Point></code>
+     * Get all points in a <code>PointColor[]</code>
      *
-     * @return all points in the point cloud
+     * @return all points in the point cloud in a array.
      */
-    public Iterable<PointColor> getPoints() {
-        return (Iterable<PointColor>) this.points.iterator();
+    public PointColor[] getPoints() {
+        PointColor[] parray = new PointColor[this.points.size()];
+        parray = this.points.toArray(parray);
+        return parray;
     }
 
     /**

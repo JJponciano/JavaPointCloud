@@ -1,6 +1,7 @@
 
 import algorithms.basic.DisplayCloud;
 import algorithms.io.ReadPCfromTXT;
+import java.util.Scanner;
 
 /*
  * Copyright (C) 2016 Jean-Jacques Ponciano.
@@ -33,6 +34,14 @@ public class Demo {
         //Demo DisplayCloud
         Demo demo = new Demo();
         demo.demoDisplayCloud();
+        System.out.println("Display table");
+        Scanner sc = new Scanner(System.in);
+        String str = "";
+        while (!str.toLowerCase().contains("q")) {
+            System.out.println("Exit(Q)");
+            str = sc.nextLine();
+        }
+        System.exit(0);
     }
 
     /**
