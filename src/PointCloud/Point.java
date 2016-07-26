@@ -25,7 +25,7 @@ import pointcloud.model.base.Point3D;
  *
  * @author Jean-Jacques Ponciano
  */
-public class Point {
+public class Point implements Comparable<Point>{
 
     protected float x;
     protected float y;
@@ -144,5 +144,16 @@ public class Point {
     public float[] getArray() {
         float[] array = {this.x, this.y, this.z};
         return array;
+    }
+
+    @Override
+    public int compareTo(Point o) {
+        if(this.x<o.getX()||
+                this.y<o.getY()||
+                this.z<o.getZ())return -1;
+        else   if(this.x>o.getX()||
+                this.y>o.getY()||
+                this.z>o.getZ())return 1;
+        else return 0;
     }
 }
