@@ -79,12 +79,4 @@ public class Demo {
         }
 
     }
-
-    public void demoDisplayCloud() {
-
-    }
-
-    public void exit(String expression) {
-
-    }
 }
