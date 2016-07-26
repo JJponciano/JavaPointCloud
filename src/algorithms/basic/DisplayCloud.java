@@ -24,6 +24,7 @@ import algorithms.IAlgorithm;
 import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.JDialog;
 import opengl.DrawingScene;
+import opengl.objects.IObjectGL;
 
 /**
  * A algorithm to display a Point cloud in no modal windows.
@@ -37,6 +38,7 @@ public class DisplayCloud implements IAlgorithm {
     protected int width;
     protected int height;
     private JDialog jd;
+    private  DrawingScene scene;
 
     /**
      * Creates a new instance of <code>CenterPC</code>.
@@ -48,6 +50,7 @@ public class DisplayCloud implements IAlgorithm {
         this.cloud = cloud;
         this.width = width;
         this.height = height;
+           scene = new DrawingScene();
     }
 
     @Override
@@ -58,7 +61,7 @@ public class DisplayCloud implements IAlgorithm {
     @Override
     public void run() {
         this.isReady = false;
-        DrawingScene scene = new DrawingScene();
+      
         PointCloudView view = new PointCloudView(this.cloud);
         scene.addObject(view);
         this.jd = new JDialog();
@@ -68,6 +71,16 @@ public class DisplayCloud implements IAlgorithm {
         jd.setModal(false);
         jd.setVisible(true);
         this.isReady = true;
+    }
+    /**
+     * Adds a object
+     * @param ob object to be added at the scene
+     */
+    public void addObject(IObjectGL ob){
+         scene.addObject(ob);
+         GLCanvas canvas = scene.getCanvas(this.width, this.height);
+//        jd.removeAll();
+//         jd.add(canvas);
     }
 
     /**
