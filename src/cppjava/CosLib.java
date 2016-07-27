@@ -27,22 +27,22 @@ import jna.CInterface;
 * <h3>C++ side</h3>
 * <p>
 * <code>
-* extern "C" __declspec(dllexport) void cleanup(float* pVals) { <br/>
-* delete[]pVals;<br/>
-*}<br/>
+* extern "C" __declspec(dllexport) void cleanup(float* pVals) { <br>
+* delete[]pVals;<br>
+*}<br>
 * extern "C" __declspec(dllexport) void processing(float **xOut,float
 * **yOut,float **zOut,int *lengthOut,const float* xIn,const float*
-* yIn,const float* zIn, int lengthIn)<br/>
-* {<br/>
-* //set the result with the values of the input cloud. <br/>
-* *xOut=xIn; <br/>
-* *yOut=yIn; <br/>
-* *zOut=zIn; <br/>
-* *lengthOut=lengthIn;<br/>
-* }<br/>
-* extern "C" __declspec(dllexport) bool isOK(){<br/>
-* return true;<br/>
-* }<br/>
+* yIn,const float* zIn, int lengthIn)<br>
+* {<br>
+* //set the result with the values of the input cloud. <br>
+* *xOut=xIn; <br>
+* *yOut=yIn; <br>
+* *zOut=zIn; <br>
+* *lengthOut=lengthIn;<br>
+* }<br>
+* extern "C" __declspec(dllexport) bool isOK(){<br>
+* return true;<br>
+* }<br>
 * </code>
 * </p>
 * <h3>Java side</h3>

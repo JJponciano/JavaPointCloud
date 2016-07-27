@@ -30,7 +30,7 @@ public interface IPointCloudListener extends EventListener {
      * This function is called when the object is changed to communicate from a
      * model at the view.
      *
-     * @param points point cloud after the changing.
+     * @param cloud point cloud after the changing.
      */
     public void updateCloud(PointCloud cloud);
 
