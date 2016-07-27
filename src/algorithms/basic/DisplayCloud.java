@@ -38,19 +38,37 @@ public class DisplayCloud implements IAlgorithm {
     protected int width;
     protected int height;
     private JDialog jd;
-    private  DrawingScene scene;
+    private DrawingScene scene;
+    private PointCloudView view;
 
     /**
-     * Creates a new instance of <code>CenterPC</code>.
+     * Creates a new instance of <code>DisplayCloud</code>.
      *
      * @param cloud cloud to be centered.
+     * @param width width of the windows.
+     * @param height height of the windows.
      */
     public DisplayCloud(PointCloud cloud, int width, int height) {
+
         this.isReady = true;
         this.cloud = cloud;
         this.width = width;
         this.height = height;
-           scene = new DrawingScene();
+        this.view = new PointCloudView(this.cloud);
+        this.scene = new DrawingScene();
+        this.scene.addObject(view);
+    }
+
+    /**
+     * Creates a new instance of <code>DisplayCloud</code>.
+     *
+     * @param width width of the windows.
+     * @param height height of the windows.
+     */
+    public DisplayCloud(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.scene = new DrawingScene();
     }
 
     @Override
@@ -61,9 +79,6 @@ public class DisplayCloud implements IAlgorithm {
     @Override
     public void run() {
         this.isReady = false;
-      
-        PointCloudView view = new PointCloudView(this.cloud);
-        scene.addObject(view);
         this.jd = new JDialog();
         jd.setSize(this.width, this.height);
         GLCanvas canvas = scene.getCanvas(this.width, this.height);
@@ -72,15 +87,14 @@ public class DisplayCloud implements IAlgorithm {
         jd.setVisible(true);
         this.isReady = true;
     }
+
     /**
      * Adds a object
+     *
      * @param ob object to be added at the scene
      */
-    public void addObject(IObjectGL ob){
-         scene.addObject(ob);
-         GLCanvas canvas = scene.getCanvas(this.width, this.height);
-//        jd.removeAll();
-//         jd.add(canvas);
+    public void addObject(IObjectGL ob) {
+        scene.addObject(ob);
     }
 
     /**
