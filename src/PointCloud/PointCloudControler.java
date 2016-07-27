@@ -23,5 +23,38 @@ package PointCloud;
  * @author Jean-Jacques Ponciano
  */
 public class PointCloudControler {
-    
+
+    protected PointCloud cloud;
+    protected PointCloudView view;
+
+    public PointCloudControler(PointCloud cloud) {
+        this.cloud = cloud;
+        this.view = new PointCloudView(this.cloud);
+    }
+
+    /**
+     * Returns the view of the point cloud usually for drawing the point cloud.
+     *
+     * @return View of the point cloud.
+     */
+    public PointCloudView getView() {
+        return this.view;
+    }
+
+    /**
+     * Returns the point cloud
+     *
+     * @return The point cloud.
+     */
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
+    /**
+     * Update the view of the point cloud.
+     */
+    public void updateView() {
+        this.view.updateCloud(cloud);
+    }
+
 }
