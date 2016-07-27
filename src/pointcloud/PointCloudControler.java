@@ -16,22 +16,45 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package PointCloud;
-
-import java.util.EventListener;
+package pointcloud;
 
 /**
  *
  * @author Jean-Jacques Ponciano
  */
-public interface IPointCloudListener extends EventListener {
+public class PointCloudControler {
+
+    protected PointCloud cloud;
+    protected PointCloudView view;
+
+    public PointCloudControler(PointCloud cloud) {
+        this.cloud = cloud;
+        this.view = new PointCloudView(this.cloud);
+    }
 
     /**
-     * This function is called when the object is changed to communicate from a
-     * model at the view.
+     * Returns the view of the point cloud usually for drawing the point cloud.
      *
-     * @param points point cloud after the changing.
+     * @return View of the point cloud.
      */
-    public void updateCloud(PointCloud cloud);
+    public PointCloudView getView() {
+        return this.view;
+    }
+
+    /**
+     * Returns the point cloud
+     *
+     * @return The point cloud.
+     */
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
+    /**
+     * Update the view of the point cloud.
+     */
+    public void updateView() {
+        this.view.updateCloud(cloud);
+    }
 
 }

@@ -18,8 +18,8 @@
  */
 package algorithms.basic;
 
-import PointCloud.PointCloud;
-import PointCloud.PointCloudView;
+import pointcloud.PointCloud;
+import pointcloud.PointCloudView;
 import algorithms.IAlgorithm;
 import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.JDialog;

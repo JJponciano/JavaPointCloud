@@ -18,8 +18,8 @@
  */
 package algorithms.basic;
 
-import PointCloud.PointCloud;
-import PointCloud.PointColor;
+import pointcloud.PointCloud;
+import pointcloud.PointColor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

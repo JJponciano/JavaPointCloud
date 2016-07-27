@@ -18,8 +18,8 @@
  */
 package algorithms.io;
 
-import PointCloud.PointCloud;
-import PointCloud.PointColor;
+import pointcloud.PointCloud;
+import pointcloud.PointColor;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;

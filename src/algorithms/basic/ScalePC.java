@@ -18,7 +18,7 @@
  */
 package algorithms.basic;
 
-import PointCloud.PointCloud;
+import pointcloud.PointCloud;
 import algorithms.IAlgorithm;
 
 /**

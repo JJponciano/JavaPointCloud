@@ -18,7 +18,7 @@
  */
 package algorithms.io;
 
-import PointCloud.PointCloud;
+import pointcloud.PointCloud;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;

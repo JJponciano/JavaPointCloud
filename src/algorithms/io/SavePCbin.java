@@ -18,8 +18,8 @@
  */
 package algorithms.io;
 
-import PointCloud.Point;
-import PointCloud.PointCloud;
+import pointcloud.Point;
+import pointcloud.PointCloud;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;

@@ -18,7 +18,7 @@
  */
 package algorithms.io;
 
-import PointCloud.PointColor;
+import pointcloud.PointColor;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
