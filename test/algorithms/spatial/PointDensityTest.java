@@ -16,8 +16,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package algorithms.basic;
+package algorithms.spatial;
 
+import algorithms.basic.AreaPC;
+import algorithms.basic.PointDensity;
 import algorithms.io.ReadPCfromTXT;
 import java.io.File;
 import org.junit.After;
