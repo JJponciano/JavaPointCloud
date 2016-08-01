@@ -74,7 +74,6 @@ public class PointDensityTest {
         System.out.println("Point density:"+instance.getDensity());
         double expected=6.706579471028027;
         assertEquals(expected, instance.getDensity(), 0.000001);
-       
     }
 
     
