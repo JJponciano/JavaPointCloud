@@ -30,11 +30,12 @@ public class PointDensity implements IAlgorithm {
     protected PointCloud cloud;
     protected boolean isReady;
     protected double density;
-
-    public PointDensity(PointCloud cloud) {
+    protected AreaPC.Unit unit;
+    public PointDensity(PointCloud cloud,AreaPC.Unit unit) {
         this.cloud = cloud;
         this.isReady = true;
         this.density = 0;
+        this.unit=unit;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class PointDensity implements IAlgorithm {
         //calculate the area
         AreaPC areaPC = new AreaPC(cloud);
         areaPC.run();
-        double area = areaPC.getArea(AreaPC.Unit.cm3);
+        double area = areaPC.getArea(this.unit);
         //divide the area by the number of points
         this.density = (double) (area / (double) this.cloud.size());;
         this.isReady = true;

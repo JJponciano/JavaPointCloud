@@ -68,7 +68,7 @@ public class PointDensityTest {
         reader.run();
         PointCloud cloud = reader.getCloud();
         //calculating density
-        PointDensity instance = new PointDensity(cloud);
+        PointDensity instance = new PointDensity(cloud,AreaPC.Unit.cm3);
         
         instance.run(); 
         System.out.println("Point density:"+instance.getDensity());
