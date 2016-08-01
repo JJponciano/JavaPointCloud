@@ -19,44 +19,34 @@
 package algorithms.spatial;
 
 import algorithms.IAlgorithm;
-import org.hibernate.cfg.NotYetImplementedException;
 import pointcloud.PointCloud;
+import pointcloud.PointColor;
 
 /**
- * Estimate the noise in a point cloud.
+ * Create  graph of  a point cloud according to a distance between two points.
  *
  * @author Jean-Jacques Ponciano
  */
-public class NoiseEstimating implements IAlgorithm {
+public class GraphPointCloud implements IAlgorithm {
 
     protected PointCloud cloud;
     protected boolean isReady;
-     protected Unit unit;
+    protected double[][]graph;
 
-    public NoiseEstimating(PointCloud cloud, Unit unit) {
+    public GraphPointCloud(PointCloud cloud) {
         this.cloud = cloud;
-        this.unit = unit;
-        this.isReady=true;
+        //init the graph
+        this.graph=new double[this.cloud.size()][this.cloud.size()];
     }
-     
 
+    
     @Override
     public boolean isReady() {
-        return isReady;
+        return this.isReady;
     }
 
     @Override
     public void run() {
-        //get the density of the cloud
-        PointDensity densityPC=new PointDensity(cloud, unit);
-        densityPC.run();
-        double density = densityPC.getDensity();
-        //distance min
-        double min=1.0/density;
-        double noise=0;
-        throw new NotYetImplementedException("Not yet implemented.");
-        //look for each point if it has a other point close to this point.
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
