@@ -42,6 +42,15 @@ public class CenterPC implements IAlgorithm {
     protected PointCloud cloud;
     protected boolean isReady;
 
+    @Override
+    public boolean isReady() {
+        return this.isReady;
+    }
+
+    public PointCloud getCloud() {
+        return cloud;
+    }
+
     /**
      * Creates a new instance of <code>CenterPC</code>.
      *
@@ -50,11 +59,6 @@ public class CenterPC implements IAlgorithm {
     public CenterPC(PointCloud cloud) {
         this.isReady = true;
         this.cloud = cloud;
-    }
-
-    @Override
-    public boolean isReady() {
-        return this.isReady;
     }
 
     @Override
@@ -68,10 +72,6 @@ public class CenterPC implements IAlgorithm {
 
             }
         }
-    }
-
-    public PointCloud getCloud() {
-        return cloud;
     }
 
 }
