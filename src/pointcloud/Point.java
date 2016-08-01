@@ -18,7 +18,6 @@
  */
 package pointcloud;
 
-import pointcloud.model.base.Point3D;
 
 /**
  * A 3D geometric point that represents the x, y, z coordinates
@@ -50,7 +49,7 @@ public class Point implements Comparable<Point> {
      * @param p other point.
      * @return The distance between both points.
      */
-    public double distance(geometry.Point p) {
+    public double distance(Point p) {
         return Math.sqrt(Math.pow(x - p.getX(), 2) + Math.pow(y - p.getY(), 2) + Math.pow(z - p.getZ(), 2));
     }
 
@@ -61,11 +60,11 @@ public class Point implements Comparable<Point> {
      * @param t value of the interpolation(usualy between 0 and 1).
      * @return The point at the specifique value in the linear interpolation.
      */
-    public geometry.Point linearInterpolation(geometry.Point p, double t) {
+    public Point linearInterpolation(geometry.Point p, double t) {
         float px = (float) ((1.f - t) * this.x + t * p.getX());
         float py = (float) ((1.f - t) * this.y + t * p.getY());
         float pz = (float) ((1.f - t) * this.z + t * p.getZ());
-        return new Point3D(px, py, pz);
+        return new Point(px, py, pz);
     }
 
     public float getX() {
