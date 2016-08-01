@@ -28,18 +28,22 @@ import java.util.Collections;
  */
 public class PointCloud {
 
-    protected ArrayList<PointColor> points;
+    protected PointColor[] points;
+    private final int maxSize;
+    private int index;
 
     /**
      * Creates a new instance of <code>PointCloud</code>.
      */
     public PointCloud() {
-        this.points = new ArrayList<>();
+        this.index = 0;
+        this.maxSize = 10000000;
+        this.points = new PointColor[maxSize];
     }
 
     public void setColor(Color color) {
-        for (int i = 0; i < this.points.size(); i++) {
-            this.points.get(i).setColor(color);
+        for (int i = 0; i < this.points.length; i++) {
+            this.get(i).setColor(color);
         }
     }
 
@@ -59,7 +63,7 @@ public class PointCloud {
      */
     public void add(PointColor p) {
         if (p != null) {
-            this.points.add(p);
+            this.points[index++] = p;
         }
     }
 
@@ -69,9 +73,10 @@ public class PointCloud {
      * @return all points in the point cloud in a array.
      */
     public PointColor[] getPoints() {
-        PointColor[] parray = new PointColor[this.points.size()];
-        parray = this.points.toArray(parray);
-        return parray;
+//        PointColor[] parray = new PointColor[this.points.size()];
+//        parray = this.points.toArray(parray);
+//        return parray;
+        return this.points;
     }
 
     /**
@@ -80,7 +85,7 @@ public class PointCloud {
      * @return The number of points in the point cloud.
      */
     public int size() {
-        return this.points.size();
+        return this.points.length;
     }
 
     /**
@@ -92,10 +97,17 @@ public class PointCloud {
      */
     public PointColor get(int i) {
         if (i >= 0 && i < this.size()) {
-            return this.points.get(i);
+            return this.points[i];
         } else {
             return null;
         }
+    }
+
+    /**
+     * Sort the point cloud in Z X Y.
+     */
+    public void sort() {
+       // Collections.sort(this.points);
     }
 
 }

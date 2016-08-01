@@ -18,11 +18,10 @@
  */
 package pointcloud;
 
-
 /**
- * A 3D geometric point that represents the x, y, z coordinates
- *
- * @author Jean-Jacques Ponciano
+ * A 3D geometric point that represents the x, y, z coordinates.
+ *The point is comparable in the priority Z X and Y .
+ * @author Jean-Jacques Ponciano.
  */
 public class Point implements Comparable<Point> {
 
@@ -147,16 +146,54 @@ public class Point implements Comparable<Point> {
 
     @Override
     public int compareTo(Point o) {
-        if (this.x < o.getX()
-                && this.y < o.getY()
-                && this.z < o.getZ()) {
+        if (this.z < o.getZ()) {
             return -1;
-        } else if (this.x > o.getX()
-                && this.y > o.getY()
-                && this.z > o.getZ()) {
+        } else if (this.z > o.getZ()) {
+            return 1;
+        } else if (this.x < o.getX()) {
+            return -1;
+        } else if (this.x > o.getX()) {
+            return 1;
+        } else if (this.y < o.getY()) {
+            return -1;
+        } else if (this.y > o.getY()) {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    /**
+     * Test is this instance of point is under a specific point
+     *
+     * @param o specific point
+     * @return true if this instance is under the point specify, false
+     * otherwise.
+     */
+    public boolean isUnder(PointColor o) {
+        if (this.x < o.getX()
+                && this.y < o.getY()
+                && this.z < o.getZ()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Test is this instance of point is upper a specific point
+     *
+     * @param o specific point
+     * @return true if this instance is upper the point specify, false
+     * otherwise.
+     */
+    public boolean isUpper(PointColor o) {
+        if (this.x > o.getX()
+                && this.y > o.getY()
+                && this.z > o.getZ()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
