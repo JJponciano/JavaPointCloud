@@ -29,12 +29,7 @@ import pointcloud.PointColor;
  */
 public class AreaPC implements IAlgorithm {
 
-    /**
-     *Unit of spatial measure.
-     */
-    public enum Unit {
-        m3, dm3, cm3, mm3
-    };
+    
     protected PointCloud cloud;
     protected boolean isReady;
     private double area;

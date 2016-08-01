@@ -30,8 +30,8 @@ public class PointDensity implements IAlgorithm {
     protected PointCloud cloud;
     protected boolean isReady;
     protected double density;
-    protected AreaPC.Unit unit;
-    public PointDensity(PointCloud cloud,AreaPC.Unit unit) {
+    protected Unit unit;
+    public PointDensity(PointCloud cloud,Unit unit) {
         this.cloud = cloud;
         this.isReady = true;
         this.density = 0;
