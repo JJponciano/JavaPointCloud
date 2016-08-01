@@ -19,9 +19,7 @@
 package algorithms.basic;
 
 import algorithms.IAlgorithm;
-import algorithms.basic.AreaPC;
 import pointcloud.PointCloud;
-import pointcloud.PointColor;
 
 /**
  *
@@ -55,7 +53,7 @@ public class PointDensity implements IAlgorithm {
         //calculate the area
         AreaPC areaPC = new AreaPC(cloud);
         areaPC.run();
-        double area = areaPC.getArea();
+        double area = areaPC.getArea(AreaPC.Unit.cm3);
         //divide the area by the number of points
         this.density = (double) (area / (double) this.cloud.size());;
         this.isReady = true;

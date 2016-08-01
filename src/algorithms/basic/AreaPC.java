@@ -29,6 +29,9 @@ import pointcloud.PointColor;
  */
 public class AreaPC implements IAlgorithm {
 
+    public enum Unit {
+        m3, dm3, cm3, mm3
+    };
     protected PointCloud cloud;
     protected boolean isReady;
     private double area;
@@ -88,8 +91,24 @@ public class AreaPC implements IAlgorithm {
         this.isReady = true;
     }
 
-    public double getArea() {
-        return area;
+    /**
+     * Get the area of the cloud in a specific unit of measure.
+     * @param unit Unit of measure to be used (m3,dm3,cm3,mm3)
+     * @return The area in a specific unit of measure.
+     */
+    public double getArea(Unit unit) {
+        switch (unit) {
+            case m3:
+                return area;
+            case dm3:
+                return area * 1000;
+            case cm3:
+                return area * 1000 * 1000;
+            case mm3:
+                return area * 1000 * 1000 * 1000;
+            default:
+                return area;
+        }
     }
 
 }
