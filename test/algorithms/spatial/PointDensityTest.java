@@ -18,8 +18,6 @@
  */
 package algorithms.spatial;
 
-import algorithms.basic.AreaPC;
-import algorithms.basic.PointDensity;
 import algorithms.io.ReadPCfromTXT;
 import java.io.File;
 import org.junit.After;
