@@ -19,8 +19,10 @@
 package algorithms.spatial;
 
 import algorithms.IAlgorithm;
+import java.util.ArrayList;
 import org.hibernate.cfg.NotYetImplementedException;
 import pointcloud.PointCloud;
+import pointcloud.PointColor;
 
 /**
  * Estimate the noise in a point cloud.
@@ -32,11 +34,13 @@ public class NoiseEstimating implements IAlgorithm {
     protected PointCloud cloud;
     protected boolean isReady;
      protected Unit unit;
+    private int noise;
 
     public NoiseEstimating(PointCloud cloud, Unit unit) {
         this.cloud = cloud;
         this.unit = unit;
         this.isReady=true;
+        this.noise=0;
     }
      
 
@@ -54,9 +58,32 @@ public class NoiseEstimating implements IAlgorithm {
         //distance min
         double min=1.0/density;
         double noise=0;
-        throw new NotYetImplementedException("Not yet implemented.");
+        ArrayList<PointColor>temp=new ArrayList<>();
+        boolean noNeigthbor=true;
         //look for each point if it has a other point close to this point.
-        
+        for (int i = 0; i < this.cloud.size(); i++) {
+            PointColor get = this.cloud.get(i);
+            //test with all previous point
+            for (int j = 0; j < temp.size(); j++) {
+                PointColor get2 = temp.get(j);
+                //test the distance
+                if(get.distance(get2)<=min){
+                    //remove the point in the temporary array.
+                    temp.remove(j);
+                    noNeigthbor=false;
+                    j--;
+                }
+            }
+            //if the point has no neightbor it is added to the temporary array
+            if(noNeigthbor)
+                temp.add(get);
+        }
+        this.noise=temp.size();
     }
+
+    public int getNoise() {
+        return noise;
+    }
+    
 
 }

@@ -20,6 +20,7 @@ package pointcloud;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Collections;
  */
 public class PointCloud {
 
-    protected PointColor[] points;
+    protected ArrayList<PointColor> points;
     private final int maxSize;
     private int index;
 
@@ -38,11 +39,11 @@ public class PointCloud {
     public PointCloud() {
         this.index = 0;
         this.maxSize = 10000000;
-        this.points = new PointColor[maxSize];
+        this.points = new ArrayList();
     }
 
     public void setColor(Color color) {
-        for (int i = 0; i < this.points.length; i++) {
+        for (int i = 0; i < this.points.size(); i++) {
             this.get(i).setColor(color);
         }
     }
@@ -63,7 +64,7 @@ public class PointCloud {
      */
     public void add(PointColor p) {
         if (p != null) {
-            this.points[index++] = p;
+            this.points.add(p);
         }
     }
 
@@ -73,10 +74,10 @@ public class PointCloud {
      * @return all points in the point cloud in a array.
      */
     public PointColor[] getPoints() {
-//        PointColor[] parray = new PointColor[this.points.size()];
-//        parray = this.points.toArray(parray);
-//        return parray;
-        return this.points;
+        PointColor[] parray = new PointColor[this.points.size()];
+        parray = this.points.toArray(parray);
+        return parray;
+   //     return this.points;
     }
 
     /**
@@ -85,7 +86,7 @@ public class PointCloud {
      * @return The number of points in the point cloud.
      */
     public int size() {
-        return this.points.length;
+        return this.points.size();
     }
 
     /**
@@ -97,8 +98,8 @@ public class PointCloud {
      */
     public PointColor get(int i) {
         if (i >= 0 && i < this.size()) {
-            return this.points[i];
-        } else {
+            return this.points.get(i);
+       } else {
             return null;
         }
     }
@@ -107,7 +108,7 @@ public class PointCloud {
      * Sort the point cloud in Z X Y.
      */
     public void sort() {
-       // Collections.sort(this.points);
+       Collections.sort(this.points);
     }
 
 }
