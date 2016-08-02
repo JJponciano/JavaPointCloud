@@ -19,8 +19,9 @@
 package pointcloud;
 
 /**
- * A 3D geometric point that represents the x, y, z coordinates.
- *The point is comparable in the priority Z X and Y .
+ * A 3D geometric point that represents the x, y, z coordinates. The point is
+ * comparable in the priority Z X and Y .
+ *
  * @author Jean-Jacques Ponciano.
  */
 public class Point implements Comparable<Point> {
@@ -195,5 +196,18 @@ public class Point implements Comparable<Point> {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Return the medium point between both points.
+     *
+     * @param point other point used
+     * @return The mediun point between both points.
+     */
+    public Point medium(Point point) {
+        float xm = (this.x + point.getX()) / 2.0f;
+        float ym = (this.y + point.getY()) / 2.0f;
+        float zm = (this.z + point.getZ()) / 2.0f;
+        return new Point(xm, ym, zm);
     }
 }

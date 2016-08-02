@@ -18,8 +18,12 @@
  */
 package algorithms.spatial;
 
+import algorithms.basic.DisplayCloud;
 import algorithms.io.ReadPCfromTXT;
+import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,6 +31,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pointcloud.PointCloud;
+import pointcloud.PointColor;
 
 /**
  *
@@ -70,11 +75,47 @@ public class NoiseEstimatingTest {
         PointCloud cloud = reader.getCloud();
         NoiseEstimating noise=new NoiseEstimating(cloud, Unit.cm3);
         noise.run();
-        System.out.println(noise.getNoise());
-        
-        noise=new NoiseEstimating(cloud, Unit.mm3);
+    }
+
+    /**
+     * Test of isReady method, of class NoiseEstimating.
+     */
+    @Test
+    public void testIsReady() {
+        System.out.println("isReady");
+    }
+
+    /**
+     * Test of getNoise method, of class NoiseEstimating.
+     */
+    @Test
+    public void testGetNoise() {
+        System.out.println("getNoise");
+    }
+    /**
+     * Test of getNoisePoints method, of class NoiseEstimating.
+     */
+    @Test
+    public void testGetNoisePoints() {
+        System.out.println("getNoisePoints");
+        String path=getClass().getResource("../../resources/table.txt").getPath();
+          assertTrue(new File(path).exists());
+        //read point cloud 
+        ReadPCfromTXT reader=new ReadPCfromTXT(path);
+        reader.run();
+        PointCloud cloud = reader.getCloud();
+        NoiseEstimating noise=new NoiseEstimating(cloud, Unit.mm3);
         noise.run();
-        System.out.println(noise.getNoise());
+        //get noised point
+        ArrayList<PointColor> noisePoints = noise.getNoisePoints();
+        for (PointColor noisePoint : noisePoints) {
+            noisePoint.setColor(Color.red);
+        }
+        DisplayCloud display=new DisplayCloud(noise.getCloud(), 1000, 1000);
+        display.run();
+         //----------------------------------------------------------------------
+            System.out.println("Exit:press key");
+        
     }
     
 }

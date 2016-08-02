@@ -33,16 +33,21 @@ public class NoiseEstimating implements IAlgorithm {
 
     protected PointCloud cloud;
     protected boolean isReady;
-     protected Unit unit;
+    protected Unit unit;
     private int noise;
-
+    protected ArrayList<PointColor> noisePoints;
+/**
+ * Creates a new instance of <code>NoiseEstimating</code>.
+ * @param cloud  cloud to be used.
+ * @param unit  Unit of spatial measure
+ */
     public NoiseEstimating(PointCloud cloud, Unit unit) {
         this.cloud = cloud;
         this.unit = unit;
-        this.isReady=true;
-        this.noise=0;
+        this.isReady = true;
+        this.noise = 0;
+        noisePoints = new ArrayList<>();
     }
-     
 
     @Override
     public boolean isReady() {
@@ -52,38 +57,46 @@ public class NoiseEstimating implements IAlgorithm {
     @Override
     public void run() {
         //get the density of the cloud
-        PointDensity densityPC=new PointDensity(cloud, unit);
+        PointDensity densityPC = new PointDensity(cloud, unit);
         densityPC.run();
         double density = densityPC.getDensity();
         //distance min
-        double min=1.0/density;
-        double noise=0;
-        ArrayList<PointColor>temp=new ArrayList<>();
-        boolean noNeigthbor=true;
+        double min = 1.0 / density;
+        double noise = 0;
+        noisePoints = new ArrayList<>();
+        boolean noNeigthbor = true;
         //look for each point if it has a other point close to this point.
         for (int i = 0; i < this.cloud.size(); i++) {
             PointColor get = this.cloud.get(i);
             //test with all previous point
-            for (int j = 0; j < temp.size(); j++) {
-                PointColor get2 = temp.get(j);
+            for (int j = 0; j < noisePoints.size(); j++) {
+                PointColor get2 = noisePoints.get(j);
                 //test the distance
-                if(get.distance(get2)<=min){
+                if (get.distance(get2) <= min) {
                     //remove the point in the temporary array.
-                    temp.remove(j);
-                    noNeigthbor=false;
+                    noisePoints.remove(j);
+                    noNeigthbor = false;
                     j--;
                 }
             }
             //if the point has no neightbor it is added to the temporary array
-            if(noNeigthbor)
-                temp.add(get);
+            if (noNeigthbor) {
+                noisePoints.add(get);
+            }
         }
-        this.noise=temp.size();
+        this.noise = noisePoints.size();
     }
 
     public int getNoise() {
         return noise;
     }
-    
 
+    public ArrayList<PointColor> getNoisePoints() {
+        return noisePoints;
+    }
+
+    public PointCloud getCloud() {
+        return cloud;
+    }
+    
 }

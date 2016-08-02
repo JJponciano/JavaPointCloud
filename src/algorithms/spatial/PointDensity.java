@@ -31,11 +31,18 @@ public class PointDensity implements IAlgorithm {
     protected boolean isReady;
     protected double density;
     protected Unit unit;
-    public PointDensity(PointCloud cloud,Unit unit) {
+
+    /**
+     *  * Creates a new instance of <code>PointDensity</code>.
+     *
+     * @param cloud cloud to be used.
+     * @param unit Unit of spatial measure
+     */
+    public PointDensity(PointCloud cloud, Unit unit) {
         this.cloud = cloud;
         this.isReady = true;
         this.density = 0;
-        this.unit=unit;
+        this.unit = unit;
     }
 
     @Override

@@ -3,7 +3,15 @@ import algorithms.basic.CenterPC;
 import algorithms.basic.DisplayCloud;
 import algorithms.basic.ScalePC;
 import algorithms.io.ReadPCfromTXT;
+import algorithms.spatial.NoiseEstimating;
+import algorithms.spatial.Unit;
+import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
+import static org.junit.Assert.assertTrue;
+import pointcloud.PointCloud;
+import pointcloud.PointColor;
 
 /*
  * Copyright (C) 2016 Jean-Jacques Ponciano.
@@ -75,8 +83,31 @@ public class Demo {
                     instance.run();
                     //----------------------------------------------------------
                 }
+                 case "n": {
+                     new Demo().noisePoints();
+                 }
             }
         }
 
+    }
+     public void noisePoints() {
+        System.out.println("NoisePoints");
+        String path= "E:\\Data\\table.txt";
+        //read point cloud 
+        ReadPCfromTXT reader=new ReadPCfromTXT(path);
+        reader.run();
+        PointCloud cloud = reader.getCloud();
+        NoiseEstimating noise=new NoiseEstimating(cloud, Unit.mm3);
+        noise.run();
+        //get noised point
+        ArrayList<PointColor> noisePoints = noise.getNoisePoints();
+        for (PointColor noisePoint : noisePoints) {
+            noisePoint.setColor(Color.red);
+        }
+        DisplayCloud display=new DisplayCloud(noise.getCloud(), 1000, 1000);
+        display.run();
+         //----------------------------------------------------------------------
+            System.out.println("end");
+        
     }
 }
