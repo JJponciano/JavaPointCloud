@@ -19,6 +19,7 @@
 package algorithms.spatial;
 
 import algorithms.IAlgorithm;
+import pointcloud.Point;
 import pointcloud.PointCloud;
 import pointcloud.PointColor;
 
@@ -29,10 +30,11 @@ import pointcloud.PointColor;
  */
 public class AreaPC implements IAlgorithm {
 
-    
     protected PointCloud cloud;
     protected boolean isReady;
     private double area;
+    private Point maxPoint;
+    private Point minPoint;
 
     @Override
     public boolean isReady() {
@@ -78,7 +80,9 @@ public class AreaPC implements IAlgorithm {
             }
         }
         //Calculate the area of the cloud 
-        double area = (max[0] - min[0]) * (max[1] - min[1]) * (max[1] - min[1]);
+        this.maxPoint = new Point(max[0], max[1], max[2]);
+        this.minPoint = new Point(min[0], min[1], min[2]);
+        double area = (max[0] - min[0]) * (max[1] - min[1]) * (max[2] - min[2]);
         return area;
     }
 
@@ -91,6 +95,7 @@ public class AreaPC implements IAlgorithm {
 
     /**
      * Get the area of the cloud in a specific unit of measure.
+     *
      * @param unit Unit of measure to be used (m3,dm3,cm3,mm3)
      * @return The area in a specific unit of measure.
      */
@@ -108,5 +113,10 @@ public class AreaPC implements IAlgorithm {
                 return area;
         }
     }
+
+    public Point getMaxPoint() {
+        return maxPoint;
+    }
+    
 
 }
