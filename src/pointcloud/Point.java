@@ -171,7 +171,7 @@ public class Point implements Comparable<Point> {
      * @return true if this instance is under the point specify, false
      * otherwise.
      */
-    public boolean isUnder(PointColor o) {
+    public boolean isUnder(Point o) {
         if (this.x < o.getX()
                 && this.y < o.getY()
                 && this.z < o.getZ()) {
@@ -188,7 +188,7 @@ public class Point implements Comparable<Point> {
      * @return true if this instance is upper the point specify, false
      * otherwise.
      */
-    public boolean isUpper(PointColor o) {
+    public boolean isUpper(Point o) {
         if (this.x > o.getX()
                 && this.y > o.getY()
                 && this.z > o.getZ()) {
