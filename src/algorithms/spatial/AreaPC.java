@@ -117,6 +117,12 @@ public class AreaPC implements IAlgorithm {
     public Point getMaxPoint() {
         return maxPoint;
     }
+
+    public Point getMinPoint() {
+        return minPoint;
+    }
+
+   
     
 
 }
