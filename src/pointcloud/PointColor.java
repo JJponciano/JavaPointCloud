@@ -63,6 +63,16 @@ public class PointColor extends Point {
         this.color = Color.WHITE;
     }
 
+    /**
+     * Creates a new instance of <code>PointColor</code>.
+     *
+     * @param point point contained the coordinate of the new instance.
+     */
+    public PointColor(Point point) {
+        super(point.getX(), point.getY(), point.getZ());
+        this.color = Color.WHITE;
+    }
+
     public Color getColor() {
         return color;
     }
