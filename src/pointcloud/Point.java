@@ -189,9 +189,7 @@ public class Point implements Comparable<Point> {
      * otherwise.
      */
     public boolean isUpper(Point o) {
-        if (this.x > o.getX()
-                && this.y > o.getY()
-                && this.z > o.getZ()) {
+        if (this.x > o.getX() && this.y > o.getY() && this.z > o.getZ()) {
             return true;
         } else {
             return false;
@@ -209,5 +207,17 @@ public class Point implements Comparable<Point> {
         float ym = (this.y + point.getY()) / 2.0f;
         float zm = (this.z + point.getZ()) / 2.0f;
         return new Point(xm, ym, zm);
+    }
+
+    public boolean isBetween(PointColor point, PointColor point2) {
+        float minX = Math.min(point.getX(), point2.getX());
+        float minY = Math.min(point.getY(), point2.getY());
+        float minZ =  Math.min(point.getZ(), point2.getZ());
+         float maxX = Math.max(point.getX(), point2.getX());
+        float maxY = Math.max(point.getY(), point2.getY());
+        float maxZ =  Math.max(point.getZ(), point2.getZ());
+        return (this.x>=minX&&this.y>=minY&&this.z>=minZ)
+                && (this.x<=maxX&&this.y<=maxY&&this.z<=maxZ);
+                 
     }
 }
