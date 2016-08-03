@@ -212,12 +212,12 @@ public class Point implements Comparable<Point> {
     public boolean isBetween(PointColor point, PointColor point2) {
         float minX = Math.min(point.getX(), point2.getX());
         float minY = Math.min(point.getY(), point2.getY());
-        float minZ =  Math.min(point.getZ(), point2.getZ());
-         float maxX = Math.max(point.getX(), point2.getX());
+        float minZ = Math.min(point.getZ(), point2.getZ());
+        float maxX = Math.max(point.getX(), point2.getX());
         float maxY = Math.max(point.getY(), point2.getY());
-        float maxZ =  Math.max(point.getZ(), point2.getZ());
-        return (this.x>=minX&&this.y>=minY&&this.z>=minZ)
-                && (this.x<=maxX&&this.y<=maxY&&this.z<=maxZ);
-                 
+        float maxZ = Math.max(point.getZ(), point2.getZ());
+        return (this.x >= minX && this.y >= minY && this.z >= minZ)
+                && (this.x <= maxX && this.y <= maxY && this.z <= maxZ);
+
     }
 }
