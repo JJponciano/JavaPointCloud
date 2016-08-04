@@ -73,11 +73,8 @@ public class PointCloud {
      *
      * @return all points in the point cloud in a array.
      */
-    public PointColor[] getPoints() {
-        PointColor[] parray = new PointColor[this.points.size()];
-        parray = this.points.toArray(parray);
-        return parray;
-   //     return this.points;
+    public ArrayList<PointColor> getPoints() {
+        return this.points;
     }
 
     /**
