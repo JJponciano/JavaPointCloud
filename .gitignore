@@ -13,3 +13,4 @@ hs_err_pid*
 /nbproject/
 nb-configuration.xml
 archive*
+nbactions.xml
