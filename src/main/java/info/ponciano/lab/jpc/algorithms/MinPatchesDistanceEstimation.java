@@ -19,7 +19,7 @@ package info.ponciano.lab.jpc.algorithms;
 import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 
 /**
- *
+ *{@code MinPatchesDistanceEstimation } aims to calculate the minimum distance between two point clouds according to their oriented bounding box.
  * @author Dr Jean-Jacques Ponciano <jean-jacques@ponciano.info>
  */
 public class MinPatchesDistanceEstimation implements Algorithm<Double> {
@@ -27,6 +27,11 @@ public class MinPatchesDistanceEstimation implements Algorithm<Double> {
     private APointCloud patch1, patch2;
     private double output;
 
+    /**
+     *Creates new instance of {@code MinPatchesDistanceEstimation } to compute the distance between two point cloud
+     * @param patch1 first point cloud.
+     * @param patch2 second point cloud.
+     */
     public MinPatchesDistanceEstimation(APointCloud patch1, APointCloud patch2) {
         this.patch1 = patch1;
         this.patch2 = patch2;
