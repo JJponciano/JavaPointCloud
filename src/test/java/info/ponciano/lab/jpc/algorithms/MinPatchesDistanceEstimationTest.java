@@ -16,6 +16,9 @@
  */
 package info.ponciano.lab.jpc.algorithms;
 
+import info.ponciano.lab.jpc.math.Point;
+import info.ponciano.lab.jpc.pointcloud.components.PointCloudMap;
+import lite.pointcloud.PointCloud;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,10 +27,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Dr Jean-Jacques Ponciano <jean-jacques@ponciano.info>
  */
 public class MinPatchesDistanceEstimationTest {
-    
+
     public MinPatchesDistanceEstimationTest() {
     }
-  
 
     /**
      * Test of run method, of class MinPatchesDistanceEstimation.
@@ -35,10 +37,51 @@ public class MinPatchesDistanceEstimationTest {
     @Test
     public void testRun() {
         System.out.println("run");
-        MinPatchesDistanceEstimation instance = null;
+        PointCloudMap pcm1 = new PointCloudMap();
+        PointCloudMap pcm2 = new PointCloudMap();
+        PointCloudMap pcm3 = new PointCloudMap();
+
+        Point p1 = new Point(0, 0, 0);
+        Point p2 = new Point(1, 1, 1);
+        Point p3 = new Point(0.5, 0.5, 0.5);
+        Point p4 = new Point(0.4, 0.4, 0.4);
+        Point p5 = new Point(0.2, 0.2, 0.2);
+
+        Point p6 = new Point(10, 10, 10);
+        Point p7 = new Point(10, 10, 10);
+        Point p8 = new Point(10.5, 10.5, 10.5);
+        Point p9 = new Point(10.4, 10.4, 10.4);
+        Point p10 = new Point(10.2, 10.2, 10.2);
+        pcm1.add(p1);
+        pcm1.add(p2);
+        pcm1.add(p3);
+        pcm1.add(p4);
+        pcm1.add(p5);
+
+        pcm2.add(p6);
+        pcm2.add(p7);
+        pcm2.add(p8);
+        pcm2.add(p9);
+        pcm2.add(p10);
+
+        pcm3.add(p3);
+        pcm3.add(p4);
+        pcm3.add(p5);
+
+        pcm3.add(p6);
+        pcm3.add(p7);
+        pcm3.add(p8);
+
+        MinPatchesDistanceEstimation instance = new MinPatchesDistanceEstimation(pcm1, pcm2);
         instance.run();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(15.58, instance.getResults(), 0.01);
+        
+         MinPatchesDistanceEstimation instance2 = new MinPatchesDistanceEstimation(pcm3, pcm2);
+        instance2.run();
+        assertEquals(0, instance2.getResults(), 0.01);
+         MinPatchesDistanceEstimation instance3 = new MinPatchesDistanceEstimation(pcm3, pcm1);
+        instance3.run();
+        assertEquals(0, instance3.getResults(), 0.01);
     }
 
     /**
@@ -46,13 +89,7 @@ public class MinPatchesDistanceEstimationTest {
      */
     @Test
     public void testGetResults() {
-        System.out.println("getResults");
-        MinPatchesDistanceEstimation instance = null;
-        Double expResult = null;
-        Double result = instance.getResults();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("getResults=run");
     }
-    
+
 }
