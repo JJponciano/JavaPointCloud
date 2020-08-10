@@ -47,8 +47,8 @@ public class MinPatchesDistanceEstimation implements Algorithm<Double> {
         return output;
     }
 
-    public void setPatch2(APointCloud patch2) {
-        this.patch2 = patch2;
+    public APointCloud getPatch2() {
+        return patch2;
     }
 
     public APointCloud getPatch1() {
