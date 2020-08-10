@@ -157,9 +157,6 @@ public abstract class APointCloud implements Serializable {
                 return false;
             }
             boolean ctd = this.getCentroid().equals(other.getCentroid());
-            if (!ctd) {
-                System.out.println("nop");
-            }
             return ctd;
         } catch (Exception e) {
             return false;
