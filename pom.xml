@@ -49,4 +49,11 @@
         <maven.compiler.source>13</maven.compiler.source>
         <maven.compiler.target>13</maven.compiler.target>
     </properties>
+    <distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub JJponciano Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/JJponciano/JavaPointCloud</url>
+   </repository>
+</distributionManagement>
 </project>
