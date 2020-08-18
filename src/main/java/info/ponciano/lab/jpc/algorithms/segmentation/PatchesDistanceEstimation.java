@@ -18,6 +18,8 @@ package info.ponciano.lab.jpc.algorithms.segmentation;
 
 import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -40,7 +42,7 @@ public abstract class PatchesDistanceEstimation implements Runnable {
             //calculate the minimum distance between all patches in multi-threading
             APointCloud[] patchestoArray = patches.values().toArray(new APointCloud[patches.size()]);
             /*Brut force method for distances computing. This method should be improved */
-            List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = brutForce(patchestoArray);
+            List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = breakingStrategy(patchestoArray,100);
             //executes all thread
             ExecutorService execute = Executors.newCachedThreadPool();
             workers.forEach(w -> execute.submit(w));
@@ -60,11 +62,37 @@ public abstract class PatchesDistanceEstimation implements Runnable {
      * @param patchestoArray array of patches
      * @param workers list of workers created
      */
-    protected List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> brutForce(APointCloud[] patchestoArray) {
+    protected List<MinPatchesDistanceEstimation> brutForce(APointCloud[] patchestoArray) {
         List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = new ArrayList<>();
         for (int i = 0; i < patchestoArray.length - 1; i++) {
             for (int j = i + 1; j < patchestoArray.length; j++) {
                 workers.add(new info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation(patchestoArray[i], patchestoArray[j]));
+            }
+        }
+        return workers;
+    }
+
+    /**
+     * Set workers for computing patches distances in a breaking way.
+     *
+     * @param patchestoArray array of patches
+     * @param workers list of workers created
+     */
+    protected List<MinPatchesDistanceEstimation> breakingStrategy(APointCloud[] patchestoArray, double maxdistance) {
+        //sort the patches in x then in y then in z
+        Arrays.sort(patchestoArray);
+
+        List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = new ArrayList<>();
+        for (int i = 0; i < patchestoArray.length - 1; i++) {
+            APointCloud pi = patchestoArray[i];
+
+            for (int j = i + 1; j < patchestoArray.length; j++) {
+                APointCloud pj = patchestoArray[j];
+                if (pi.getCentroid().distance(pj.getCentroid()) > maxdistance) {
+                    break;
+                } else {
+                    workers.add(new info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation(pi, pj));
+                }
             }
         }
         return workers;
