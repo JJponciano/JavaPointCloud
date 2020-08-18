@@ -16,6 +16,7 @@
  */
 package info.ponciano.lab.jpc.algorithms;
 
+import info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation;
 import info.ponciano.lab.jpc.math.Point;
 import info.ponciano.lab.jpc.pointcloud.components.PointCloudMap;
 import lite.pointcloud.PointCloud;
