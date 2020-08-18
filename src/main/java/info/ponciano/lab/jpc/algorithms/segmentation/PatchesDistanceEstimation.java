@@ -16,7 +16,6 @@
  */
 package info.ponciano.lab.jpc.algorithms.segmentation;
 
-import info.ponciano.lab.jpc.algorithms.MinPatchesDistanceEstimation;
 import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +36,11 @@ public abstract class PatchesDistanceEstimation implements Runnable {
     public void run() {
         try {
             //get all patches
-            Map<APointCloud, String> patches = this.getPatches();
+            Map<String, APointCloud> patches = this.getPatches();
             //calculate the minimum distance between all patches in multi-threading
-            List<info.ponciano.lab.jpc.algorithms.MinPatchesDistanceEstimation> workers = new ArrayList<>();
-            APointCloud[] patchestoArray = patches.keySet().toArray(new APointCloud[patches.size()]);
-            for (int i = 0; i < patchestoArray.length - 1; i++) {
-                for (int j = i + 1; j < patchestoArray.length; j++) {
-                    workers.add(new info.ponciano.lab.jpc.algorithms.MinPatchesDistanceEstimation(patchestoArray[i], patchestoArray[j]));
-                }
-            }
+            APointCloud[] patchestoArray = patches.values().toArray(new APointCloud[patches.size()]);
+            /*Brut force method for distances computing. This method should be improved */
+            List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = brutForce(patchestoArray);
             //executes all thread
             ExecutorService execute = Executors.newCachedThreadPool();
             workers.forEach(w -> execute.submit(w));
@@ -58,7 +53,24 @@ public abstract class PatchesDistanceEstimation implements Runnable {
         }
     }
 
-    protected abstract Map<APointCloud, String> getPatches();
+    /**
+     * Set workers for computing patches distances in a brut force way. This
+     * method should be improved
+     *
+     * @param patchestoArray array of patches
+     * @param workers list of workers created
+     */
+    protected List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> brutForce(APointCloud[] patchestoArray) {
+        List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = new ArrayList<>();
+        for (int i = 0; i < patchestoArray.length - 1; i++) {
+            for (int j = i + 1; j < patchestoArray.length; j++) {
+                workers.add(new info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation(patchestoArray[i], patchestoArray[j]));
+            }
+        }
+        return workers;
+    }
 
-    protected abstract void postprocessing(List<MinPatchesDistanceEstimation> workers, Map<APointCloud, String> patches);
+    protected abstract Map<String, APointCloud> getPatches();
+
+    protected abstract void postprocessing(List<MinPatchesDistanceEstimation> workers, Map<String, APointCloud> patches);
 }
