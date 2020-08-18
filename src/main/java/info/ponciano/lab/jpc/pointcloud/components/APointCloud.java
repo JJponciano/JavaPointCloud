@@ -37,7 +37,7 @@ import java.util.stream.Stream;
  *
  * @author Dr. Jean-Jacques Ponciano.
  */
-public abstract class APointCloud implements Serializable {
+public abstract class APointCloud implements Serializable, Comparable<APointCloud> {
 
     protected Coord3D centroid;
     protected Normal meanNormal;
@@ -137,6 +137,7 @@ public abstract class APointCloud implements Serializable {
     public int hashCode() {
         return this.getCentroid().hash().hashCode();
     }
+
     public String hash() {
         return this.getCentroid().hash();
     }
@@ -550,6 +551,37 @@ public abstract class APointCloud implements Serializable {
             point.getCoords().setY(point.getCoords().getY() - movingVector.getY());
             point.getCoords().setZ(point.getCoords().getZ() - movingVector.getZ());
         });
+    }
+
+    @Override
+    public int compareTo(APointCloud o) {
+        Coord3D c = o.getCentroid();
+        Coord3D thiscentroid = this.getCentroid();
+        if (thiscentroid.getX() - c.getX() < 0) {
+            return -1;
+        } else {
+            if (thiscentroid.getX() - c.getX() > 0) {
+                return 1;
+            } else {
+                if (thiscentroid.getY() - c.getY() < 0) {
+                    return -1;
+                } else {
+                    if (thiscentroid.getY() - c.getY() > 0) {
+                        return 1;
+                    } else {
+                        if (thiscentroid.getZ() - c.getZ() < 0) {
+                            return -1;
+                        } else {
+                            if (thiscentroid.getZ() - c.getZ() > 0) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public abstract Iterator<Point> iterator();
