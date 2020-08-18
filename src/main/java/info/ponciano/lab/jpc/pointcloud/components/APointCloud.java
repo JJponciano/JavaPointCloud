@@ -135,7 +135,7 @@ public abstract class APointCloud implements Serializable {
     @Override
     @Deprecated
     public int hashCode() {
-        return this.getCentroid().hashCode();
+        return this.getCentroid().hash().hashCode();
     }
     public String hash() {
         return this.getCentroid().hash();
