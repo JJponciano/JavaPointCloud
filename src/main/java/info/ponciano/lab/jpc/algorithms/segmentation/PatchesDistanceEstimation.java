@@ -20,6 +20,7 @@ import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -34,21 +35,40 @@ import java.util.logging.Logger;
  */
 public abstract class PatchesDistanceEstimation implements Runnable {
 
+    private int maxDistance;
+
+    public PatchesDistanceEstimation() {
+        this.maxDistance = 10;
+    }
+
+    /**
+     * Creates new instance of {@code PatchesDistanceEstimation}
+     *
+     * @param maxDistance the maximum distance between centroids of two patches
+     * to allow the calculation of their distance.
+     */
+    public PatchesDistanceEstimation(int maxDistance) {
+        this.maxDistance = maxDistance;
+    }
+
     @Override
     public void run() {
+        System.out.println(new Date(System.currentTimeMillis()).toLocaleString() + " start " + this.getClass().getName());
+
         try {
             //get all patches
             Map<String, APointCloud> patches = this.getPatches();
             //calculate the minimum distance between all patches in multi-threading
             APointCloud[] patchestoArray = patches.values().toArray(new APointCloud[patches.size()]);
             /*Brut force method for distances computing. This method should be improved */
-            List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = breakingStrategy(patchestoArray,100);
+            List<info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation> workers = breakingStrategy(patchestoArray, maxDistance);
             //executes all thread
             ExecutorService execute = Executors.newCachedThreadPool();
             workers.forEach(w -> execute.submit(w));
             execute.shutdown();
-            execute.awaitTermination(10, TimeUnit.DAYS);
-
+            execute.awaitTermination(1000, TimeUnit.DAYS);
+            System.out.println(new Date(System.currentTimeMillis()).toLocaleString() + " end " + this.getClass().getName());
+            System.out.println(workers.size());
             this.postprocessing(workers, patches);
         } catch (InterruptedException ex) {
             Logger.getLogger(PatchesDistanceEstimation.class.getName()).log(Level.SEVERE, null, ex);
