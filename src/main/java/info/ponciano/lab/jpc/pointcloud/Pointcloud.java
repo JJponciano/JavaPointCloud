@@ -29,7 +29,9 @@ import info.ponciano.lab.jpc.pointcloud.stucture.octree.Voxel;
 import info.ponciano.lab.jpc.pointcloud.stucture.octree.Voxels;
 import info.ponciano.lab.jpc.math.Color;
 import info.ponciano.lab.jpc.math.RandomColor;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -38,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -410,4 +414,26 @@ public class Pointcloud implements Serializable {
     public boolean saveASCII(String path) {
         return IoPointcloud.saveASCII(path, this);
     }
+
+    /**
+     * Saves All patches in a file according to is key in the point cloud.
+     *
+     * @param pathdir of the directory to save all patches.
+     */
+    public void exportPatches(String pathdir) {
+        if (!pathdir.endsWith("/") || !pathdir.endsWith("\\")) {
+            pathdir += "/";
+        }
+        new File(pathdir).mkdirs();
+        final String dir = pathdir;
+        this.patches.forEach((k, v) -> {
+            try {
+                v.save(dir + k + ".xyz");
+            } catch (IOException ex) {
+                Logger.getLogger(Pointcloud.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+    }
+
 }
