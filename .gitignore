@@ -16,3 +16,5 @@ archive*
 nbactions.xml
 jpc_toremove*
 testSaveASCII.xyz
+patches.7z
+patches.xyz
