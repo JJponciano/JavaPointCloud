@@ -35,35 +35,44 @@ public class PointCloudExample {
             // load a classic xyz point cloud "testSaveASCII.xyz"
             Pointcloud instance = IoPointcloud.loadASCII("src/test/resources/test_part_small.txt");
             System.out.println("End loading: ");
-               colorPatches(instance);
-         
+            Pointcloud patches = colorPatches(instance);
+            //display patches
+            ShowPointcloud pc = new ShowPointcloud(null, true, patches, "Pazches", false);
+//            pc.setVisible(true);
+            patches.saveASCII("patches.xyz");
+            Pointcloud typePatches = typePatches(instance);
+            ShowPointcloud pc2 = new ShowPointcloud(null, true, typePatches, "Type of patches", false);
+//            pc2.setVisible(true);
+            typePatches.saveASCII("typePatches.xyz");
+            
+            instance.exportPatches("patches/");
+            System.out.println("done");
+            System.exit(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Pointcloud.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void typePatches(Pointcloud instance) {
+
+    public static Pointcloud typePatches(Pointcloud instance) {
         int size = instance.getPatches().size();
-        System.out.println("Points: "+instance.size());
-        System.out.println("Patches: "+size);
+        System.out.println("Points: " + instance.size());
+        System.out.println("Patches: " + size);
         //refactor the pointcloud to creates patches
         if (size == 1) {
             System.out.println("Refactoring");
             instance.refactor();
-            System.out.println("End: " );
+            System.out.println("End: ");
         }
         System.out.println("Colorizing");
         ///random colorizes every patch
         instance.typeColorizesPatches();
-        System.out.println("End: \nDisplay:");
-        //display patches
-        ShowPointcloud pc = new ShowPointcloud(null, true, instance, "test", false);
-        pc.setVisible(true);
+        return instance;
     }
 
-    public static void colorPatches(Pointcloud instance) {
+    public static Pointcloud colorPatches(Pointcloud instance) {
         int size = instance.getPatches().size();
-        System.out.println("Points: "+instance.size());
-        System.out.println("Patches: "+size);
+        System.out.println("Points: " + instance.size());
+        System.out.println("Patches: " + size);
         //refactor the pointcloud to creates patches
         if (size == 1) {
             System.out.println("Refactoring");
@@ -72,8 +81,7 @@ public class PointCloudExample {
         System.out.println("Colorizing");
         ///random colorizes every patch
         instance.randomColorizesPatches();
-        //display patches
-        ShowPointcloud pc = new ShowPointcloud(null, true, instance, "test", false);
-        pc.setVisible(true);
+        return instance;
+
     }
 }
