@@ -25,11 +25,18 @@ import info.ponciano.lab.jpc.math.vector.Normal;
 import info.ponciano.lab.jpc.math.vector.Vector3d;
 
 import java.awt.geom.Point2D;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 /**
@@ -588,4 +595,52 @@ public abstract class APointCloud implements Serializable, Comparable<APointClou
 
     public abstract Stream<Point> stream();
 
+    public void save(String string) throws IOException {
+        saveTxtFile(this, string);
+    }
+
+    /**
+     * Save point cloud to TXT file
+     *
+     * @param cloud point cloud to be saved.
+     * @param filepath path of the file.
+     * @throws IOException if something wrong.
+     */
+    public void saveTxtFile(APointCloud cloud, String filepath) throws IOException {
+        BufferedWriter writer = null;
+        IOException error = null;
+        try {
+            File fileio = new File(filepath);
+            Charset charset = Charset.forName("UTF8");
+            writer = Files.newBufferedWriter(fileio.toPath(), charset);
+            write(writer, cloud);
+        } catch (IOException ex) {
+            error = ex;
+        } finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException ex) {
+                error = ex;
+            }
+        }
+        if (error != null) {
+            throw error;
+        }
+    }
+
+    private static void write(BufferedWriter writer, APointCloud cloud) {
+        try {
+            /*write cloud*/
+            Iterator<Point> it = cloud.iterator();
+            while (it.hasNext()) {
+                Point point = it.next();
+                String txt = point.toString() + "\n";
+                writer.write(txt);
+            };
+        } catch (IOException ex) {
+            Logger.getLogger(APointCloud.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
