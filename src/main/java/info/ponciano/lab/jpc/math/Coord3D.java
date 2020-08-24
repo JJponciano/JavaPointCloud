@@ -906,10 +906,7 @@ public class Coord3D implements Cloneable, java.io.Serializable {
         if (Math.abs(y - other.y) > Coord3D.ACCURACY) {
             return false;
         }
-        if (Math.abs(z - other.z) > Coord3D.ACCURACY) {
-            return false;
-        }
-        return true;
+        return Math.abs(z - other.z) <= Coord3D.ACCURACY;
     }
     /*
     
