@@ -91,7 +91,7 @@ public class Octree {
         this.origin.stream().forEach(p -> {
             if (!motherBox.add(p)) {
                 System.err.println("point cannot be added");
-            };
+            }
         });
         // set root with the motherbox as value
         this.root = new OctreeNode(motherBox);
