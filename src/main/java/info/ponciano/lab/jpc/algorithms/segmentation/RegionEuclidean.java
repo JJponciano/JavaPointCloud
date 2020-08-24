@@ -18,12 +18,6 @@
 package info.ponciano.lab.jpc.algorithms.segmentation;
 
 import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
-import info.ponciano.lab.jpc.math.PiMath;
-import info.ponciano.lab.jpc.math.Point;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  *
