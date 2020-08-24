@@ -120,7 +120,7 @@ public class Voxel extends Box implements Serializable{
 //        this.cloud.add(points);
 //        this.calculatesMean();
         points.forEach(p -> {
-           if(!this.add(p)) System.err.println("point cannot be added");;
+           if(!this.add(p)) System.err.println("point cannot be added");
         });
     }
 
@@ -273,6 +273,13 @@ public class Voxel extends Box implements Serializable{
         }
         final Voxel other = (Voxel) obj;
         return Objects.equals(this.mean, other.mean);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.mean);
+        return hash;
     }
 
     /**
