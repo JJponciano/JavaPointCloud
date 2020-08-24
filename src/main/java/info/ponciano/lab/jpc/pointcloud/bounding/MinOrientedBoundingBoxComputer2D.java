@@ -100,7 +100,7 @@ public class MinOrientedBoundingBoxComputer2D {
     }
 
     private static List<Point2D> transform(List<Point2D> points, AffineTransform at) {
-        List<Point2D> result = new ArrayList<Point2D>();
+        List<Point2D> result = new ArrayList<>();
         for (Point2D p : points) {
             Point2D tp = at.transform(p, null);
             result.add(tp);
@@ -174,12 +174,12 @@ public class MinOrientedBoundingBoxComputer2D {
         // because the FastConvexHull class expects
         // the points with integer coordinates. 
         // This should be generalized to Point2D!
-        ArrayList<Point> ps = new ArrayList<Point>();
+        ArrayList<Point> ps = new ArrayList<>();
         for (Point2D p : points) {
             ps.add(new Point((int) p.getX(), (int) p.getY()));
         }
         List<Point> convexHull = FastConvexHull.execute(ps);
-        List<Point2D> result = new ArrayList<Point2D>();
+        List<Point2D> result = new ArrayList<>();
         for (Point p : convexHull) {
             double x = p.getX();
             double y = p.getY();
@@ -225,7 +225,7 @@ class FastConvexHull {
                 lLowerSize--;
             }
         }
-        ArrayList<Point> result = new ArrayList<Point>();
+        ArrayList<Point> result = new ArrayList<>();
         for (int i = 0; i < lUpperSize; i++) {
             result.add(lUpper[i]);
         }
