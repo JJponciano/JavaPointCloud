@@ -57,8 +57,8 @@ public class RegionEuclidean extends Region {
 
     @Override
     protected boolean isSimilar(Region reg2) {
-        double distance = this.getCentroid().distance(reg2.getCentroid());// fast way
-        return distance <= this.distance;
+        double d = this.getCentroid().distance(reg2.getCentroid());// fast way
+        return d <= this.distance;
     }
 
     @Override
