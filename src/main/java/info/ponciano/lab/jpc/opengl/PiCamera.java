@@ -81,7 +81,7 @@ public class PiCamera {
     /**
      * Reset the zoom 
      */
-    public void resetZoom() {
+    public final void resetZoom() {
         //angle de Zoome de la caméra
         this.zoom = 45;
     }
