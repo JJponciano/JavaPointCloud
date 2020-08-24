@@ -45,8 +45,8 @@ public class RegionEuclidean extends Region {
 
     @Override
     protected boolean isCloseX(Region reg2) {
-        double distance = Math.abs(this.getCentroid().getX() - reg2.getCentroid().getX());// fast way
-        return distance <= this.distance;
+        double d = Math.abs(this.getCentroid().getX() - reg2.getCentroid().getX());// fast way
+        return d <= this.distance;
     }
 
     @Override
