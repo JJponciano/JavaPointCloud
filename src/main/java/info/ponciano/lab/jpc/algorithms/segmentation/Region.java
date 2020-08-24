@@ -20,18 +20,14 @@ import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 import info.ponciano.lab.jpc.pointcloud.components.PointCloudMap;
 import info.ponciano.lab.jpc.math.Color;
 import info.ponciano.lab.jpc.math.Coord3D;
-import info.ponciano.lab.jpc.math.Point;
 import info.ponciano.lab.jpc.math.vector.Normal;
-import java.util.ArrayList;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 /**
  *
