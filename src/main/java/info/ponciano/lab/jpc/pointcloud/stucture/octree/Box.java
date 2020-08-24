@@ -17,7 +17,6 @@
 package info.ponciano.lab.jpc.pointcloud.stucture.octree;
 
 import info.ponciano.lab.jpc.math.Splitable;
-import info.ponciano.lab.jpc.math.Color;
 import info.ponciano.lab.jpc.math.Coord3D;
 import info.ponciano.lab.jpc.math.PiMath;
 import info.ponciano.lab.jpc.math.Point;
