@@ -47,7 +47,6 @@ public class PointCloudExample {
             
             instance.exportPatches("patches/");
             System.out.println("done");
-            System.exit(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Pointcloud.class.getName()).log(Level.SEVERE, null, ex);
         }
