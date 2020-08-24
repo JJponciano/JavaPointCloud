@@ -75,7 +75,7 @@ public class PointCloudMap extends APointCloud {
 
     @Override
     public void remove(Point noisePoint) {
-        this.points.remove(noisePoint.hashCode());
+        Point remove = this.points.remove(noisePoint.hashCode());
     }
 
     @Override
