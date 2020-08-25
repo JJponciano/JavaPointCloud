@@ -25,9 +25,9 @@ import info.ponciano.lab.jpc.opengl.IObjectGL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -36,7 +36,7 @@ import java.util.stream.Stream;
  */
 public class Voxels {
 
-    private final Set<Voxel> voxels;
+    private final List<Voxel> voxels;
     /**
      * min area found among voxels
      */
@@ -44,12 +44,12 @@ public class Voxels {
 
     public Voxels() {
         this.minVolume = Integer.MAX_VALUE;
-        this.voxels = new LinkedHashSet<>();
+        this.voxels = new LinkedList<>();
     }
 
     public Voxels(List<Voxel> voxels) {
         this.minVolume = Integer.MAX_VALUE;
-        this.voxels = new LinkedHashSet<>();
+        this.voxels = new LinkedList<>();
         this.voxels.addAll(voxels);
     }
 
