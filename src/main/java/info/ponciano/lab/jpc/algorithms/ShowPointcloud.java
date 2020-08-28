@@ -17,19 +17,27 @@
 package info.ponciano.lab.jpc.algorithms;
 
 import com.jogamp.opengl.awt.GLCanvas;
+import info.ponciano.lab.jpc.math.Color;
 import info.ponciano.lab.jpc.pointcloud.Pointcloud;
 import info.ponciano.lab.jpc.pointcloud.components.APointCloud;
 import info.ponciano.lab.jpc.pointcloud.components.PointCloudView;
 import info.ponciano.lab.jpc.math.Coord3D;
+import info.ponciano.lab.jpc.math.Point;
+import info.ponciano.lab.jpc.math.RandomColor;
+import info.ponciano.lab.jpc.math.vector.Normal;
 import info.ponciano.lab.jpc.opengl.DrawingScene;
 import info.ponciano.lab.jpc.opengl.IObjectGL;
+import info.ponciano.lab.jpc.pointcloud.components.PointCloudMap;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -63,16 +71,42 @@ public class ShowPointcloud extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-    private final DrawingScene scene;
-    private final int heightScreen;
-    private final int widthScreen;
+    private DrawingScene scene;
+    private int heightScreen;
+    private int widthScreen;
     private PointCloudView view;
     private Coord3D centroid;
-    private final Pointcloud pointcloud;
+    private Pointcloud pointcloud;
 
     public ShowPointcloud(final java.awt.Frame parent, final boolean modal, final Pointcloud cloud, final String title,
             final boolean normalRGB) {
         this(parent, modal, cloud, title, normalRGB, true);
+    }
+
+    public ShowPointcloud(final java.awt.Frame parent, final boolean modal, List<APointCloud> pcm, final String title,
+            final boolean normalRGB, boolean randomcolorize) {
+        super(parent, modal);
+        initComponents();
+        RandomColor rc = new RandomColor();
+        Pointcloud pc = new Pointcloud();
+        APointCloud patch = new PointCloudMap();
+        pcm.forEach(cl -> {
+            Color color;
+            Iterator<Point> iterator = cl.iterator();
+            while (iterator.hasNext()) {
+                Point next = iterator.next();
+                if (randomcolorize) {
+                    color = rc.getColor();
+                } else {
+                    color = next.getColor();
+                }
+                patch.add(new Point(new Coord3D(next.getCoords().getX(), next.getCoords().getY(), next.getCoords().getZ()),
+                        color, new Normal(next.getNormal().getX(), next.getNormal().getY(), next.getNormal().getZ())));
+            }
+
+        });
+        pc.add(patch);
+        init(title, pc);
     }
 
     /**
@@ -89,7 +123,10 @@ public class ShowPointcloud extends javax.swing.JDialog {
             final boolean normalRGB, final boolean toCenter) {
         super(parent, modal);
         initComponents();
+        init(title, cloud);
+    }
 
+    protected void init(final String title1, final Pointcloud cloud) throws HeadlessException {
         // Close the dialog when Esc is pressed
         final String cancelName = "cancel";
         final InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -101,19 +138,17 @@ public class ShowPointcloud extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
-
         this.scene = new DrawingScene();
-         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maximumWindowBounds = ge.getMaximumWindowBounds();
         this.heightScreen = (int) maximumWindowBounds.getHeight();
         this.widthScreen = (int) maximumWindowBounds.getWidth();
         this.setSize(new Dimension(widthScreen, heightScreen));
-        this.title.setText(title);
+        this.title.setText(title1);
         this.pointcloud = cloud;
         updateCloud();
-//        this.center.removeAll();
-         GLCanvas canvas = scene.getCanvas(heightScreen, widthScreen);
-      
+        //        this.center.removeAll();
+        GLCanvas canvas = scene.getCanvas(heightScreen, widthScreen);
         this.center.add(canvas);
     }
 
@@ -212,18 +247,16 @@ public class ShowPointcloud extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-                this.pointcloud.refactor();
-                this.pointcloud.randomColorizesPatches();
-                IoPointcloud.saveASCII("test.txt", pointcloud);
-                this.updateCloud();
+        this.pointcloud.refactor();
+        this.pointcloud.randomColorizesPatches();
+        IoPointcloud.saveASCII("test.txt", pointcloud);
+        this.updateCloud();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         this.updateCloud();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-   
 
     private void okButtonActionPerformed(final java.awt.event.ActionEvent evt) {// GEN-FIRST:event_okButtonActionPerformed
         doClose(RET_OK);
@@ -271,7 +304,7 @@ public class ShowPointcloud extends javax.swing.JDialog {
         }
         // </editor-fold>
         // </editor-fold>
-        
+
         // </editor-fold>
         // </editor-fold>
 
@@ -280,7 +313,7 @@ public class ShowPointcloud extends javax.swing.JDialog {
             try {
                 JFrame jFrame = new javax.swing.JFrame();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Pointcloud", "xyz", "txt");
-                String path="";
+                String path = "";
                 final File fileio = new File("");
                 final JFileChooser fc = new JFileChooser(fileio);
                 fc.addChoosableFileFilter(filter);
@@ -290,13 +323,11 @@ public class ShowPointcloud extends javax.swing.JDialog {
                 final int returnVal = fc.showOpenDialog(jFrame);
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    path= fc.getSelectedFile().getAbsolutePath();
+                    path = fc.getSelectedFile().getAbsolutePath();
                 }
-                
-                
-                
+
                 Pointcloud loaded = IoPointcloud.loadASCII(path);
-                int lastIndexOf = path.lastIndexOf("\\")+1;
+                int lastIndexOf = path.lastIndexOf("\\") + 1;
                 if (lastIndexOf < 0) {
                     lastIndexOf = path.lastIndexOf("/");
                 }
