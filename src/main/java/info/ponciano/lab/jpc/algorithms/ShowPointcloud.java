@@ -91,13 +91,14 @@ public class ShowPointcloud extends javax.swing.JDialog {
         Pointcloud pc = new Pointcloud();
         APointCloud patch = new PointCloudMap();
         pcm.forEach(cl -> {
-            Color color;
+            Color color = null;
+            if (randomcolorize) {
+                color = rc.getColor();
+            }
             Iterator<Point> iterator = cl.iterator();
             while (iterator.hasNext()) {
                 Point next = iterator.next();
-                if (randomcolorize) {
-                    color = rc.getColor();
-                } else {
+                if (!randomcolorize) {
                     color = next.getColor();
                 }
                 patch.add(new Point(new Coord3D(next.getCoords().getX(), next.getCoords().getY(), next.getCoords().getZ()),
@@ -126,7 +127,7 @@ public class ShowPointcloud extends javax.swing.JDialog {
         init(title, cloud);
     }
 
-    protected void init(final String title1, final Pointcloud cloud) throws HeadlessException {
+    protected final void init(final String title1, final Pointcloud cloud) throws HeadlessException {
         // Close the dialog when Esc is pressed
         final String cancelName = "cancel";
         final InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
