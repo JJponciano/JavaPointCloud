@@ -38,7 +38,7 @@ public abstract class PatchesDistanceEstimation implements Runnable {
     private int maxDistance;
 
     public PatchesDistanceEstimation() {
-        this.maxDistance = 10;
+        this.maxDistance = 3;
     }
 
     /**
@@ -108,7 +108,7 @@ public abstract class PatchesDistanceEstimation implements Runnable {
 
             for (int j = i + 1; j < patchestoArray.length; j++) {
                 APointCloud pj = patchestoArray[j];
-                if (pi.getCentroid().distance(pj.getCentroid()) > maxdistance) {
+                if (Math.abs(pi.getCentroid().getX()-pj.getCentroid().getX()) > maxdistance) {
                     break;
                 } else {
                     workers.add(new info.ponciano.lab.jpc.algorithms.segmentation.MinPatchesDistanceEstimation(pi, pj));
