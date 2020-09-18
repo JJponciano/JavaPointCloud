@@ -38,7 +38,7 @@ public abstract class PatchesDistanceEstimation implements Runnable {
     private int maxDistance;
 
     public PatchesDistanceEstimation() {
-        this.maxDistance = 3;
+        this.maxDistance = 1;
     }
 
     /**
