@@ -21,3 +21,4 @@ patches.xyz
 patches/*
 typePatches.xyz
 centered.xyz
+*.xml
