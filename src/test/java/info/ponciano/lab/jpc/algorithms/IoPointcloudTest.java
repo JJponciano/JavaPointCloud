@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dr Jean-Jacques Ponciano <jean-jacques@ponciano.info>
+ * Copyright (C) 2020 Dr Jean-Jacques Ponciano (Contact: jean-jacques@ponciano.info)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author Dr Jean-Jacques Ponciano <jean-jacques@ponciano.info>
+ * @author Dr Jean-Jacques Ponciano (Contact: jean-jacques@ponciano.info)
  */
 public class IoPointcloudTest {
 
