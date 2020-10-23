@@ -67,10 +67,17 @@ public class Pointcloud implements Serializable {
      * contained, and two thresholds for the patches creation.
      *
      */
-    public void refactor() {
-        APointCloud points = this.getPoints();
-        this.patches.clear();
-        this.init(points);
+    public boolean refactor() {
+        //test that the point cloud has normal estimate
+        boolean normalized = this.patches.values().iterator().next().isNormalized();
+        if (normalized) {
+            APointCloud points = this.getPoints();
+            this.patches.clear();
+            this.init(points);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -392,14 +399,19 @@ public class Pointcloud implements Serializable {
      * refactored to create patches.
      *
      * @param path path of the file.
+     * @param refactor true to refactor the point cloud and compute patches,
+     * false otherwise.
+     * @return true if the file was loaded and refactored, false otherwise. The
+     * point cloud cannot be refactored if the normals are not estimated
      * @throws FileNotFoundException if the file is not found.
      */
-    public void loadASCII(String path) throws FileNotFoundException {
+    public boolean loadASCII(String path, boolean refactor) throws FileNotFoundException {
         IoPointcloud.loadASCII(path, this);
-        int size = this.patches.size();
         //refactor the pointcloud to creates patches
-        if (size == 1) {
-            this.refactor();
+        if (refactor) {
+            return this.refactor();
+        } else {
+            return true;
         }
     }
 
