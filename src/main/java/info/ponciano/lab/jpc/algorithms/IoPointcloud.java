@@ -112,13 +112,16 @@ public class IoPointcloud {
 
     public static Pointcloud loadASCII(String path) throws FileNotFoundException {
         Pointcloud cloud = new Pointcloud();
-        if (loadASCII(path, cloud)) return null;
+        if (loadASCII(path, cloud)) {
+            return null;
+        }
         return cloud;
     }
 
     public static boolean loadASCII(String path, Pointcloud cloud) throws FileNotFoundException, NumberFormatException {
         BufferedReader reader = null;
         IOException error = null;
+        int nbpoint = -1;
         // read the file
         File fileio = new File(path);
         if (!fileio.exists()) {
@@ -162,8 +165,13 @@ public class IoPointcloud {
                             System.err.println("Unknow key for the point cloud loading:" + split[0] + " info.ponciano.lab.jpc.algorithms.IoPointcloud.loadASCII()");
                     }
                 } else // if the line is not a comment
-                    if (line.charAt(0) != '#' && line.charAt(0) != '/') {
-                        
+                if (line.charAt(0) != '#' && line.charAt(0) != '/') {
+                    if (split.length == 1) { //it is the number of points
+                        if (nbpoint < 0) {
+                            nbpoint = Integer.parseInt(split[0]);
+                        }
+                    } else {
+
                         id = "0";
                         try {
                             dx = Double.parseDouble(split[0]);
@@ -180,7 +188,7 @@ public class IoPointcloud {
                         } catch (NumberFormatException e) {
                             dz = 0;
                         }
-                        
+
                         if (split.length >= 6) {
                             r = Short.parseShort(split[3]);
                             g = Short.parseShort(split[4]);
@@ -209,9 +217,9 @@ public class IoPointcloud {
                             } catch (NumberFormatException e) {
                                 id = "0";
                             }
-                            
+
                         }
-                        
+
                         Point point3D = new Point(new Coord3D(dx, dy, dz), new Color(r, g, b), new Normal(dnx, dny, dnz));
                         if (cloud.contains(id)) {
                             cloud.get(id).add(point3D);
@@ -221,6 +229,7 @@ public class IoPointcloud {
                             cloud.add(id, patch);
                         }
                     }
+                }
             }//end read line
             cloud.setIrregular(irregular);
             cloud.setRegular(regular);
