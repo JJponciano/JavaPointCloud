@@ -352,29 +352,5 @@ public class Voxel extends Box implements Serializable {
         return this.cloud.size();
     }
 
-    public String getPlyWithComment(String commentsLine) {
-        String ply = "ply\n"
-                + "format ascii 1.0\n"
-                + "comment made by JavaPointCloud library\n"
-                +"comment "+ commentsLine + "\n"
-                + "element vertex 8\n"
-                + "property double x\n"
-                + "property double y\n"
-                + "property double z\n"
-                + "element face 6\n"
-                + "property list uchar int vertex_index\n"
-                + "end_header\n";
-        for (Point point : points) {
-            ply += point.getCoords().getX() + " " + point.getCoords().getY() + " " + point.getCoords().getZ() + "\n";
-        }
-        ply += "4 0 2 3 1\n";
-        ply += "4 2 6 7 3\n";
-        ply += "4 6 4 5 7\n";
-        ply += "4 4 0 1 5\n";
-        ply += "4 1 3 7 5\n";
-        ply += "4 0 4 6 2\n";
-
-        return ply;
-    }
 
 }
