@@ -264,7 +264,7 @@ public class Point implements Comparable<Point>, Serializable {
     }
 
     public boolean isNormalized() {
-        return normal != null;
+        return normal != null&&(normal.getNorm()>0.00001);
     }
 
     public Coord3D getCoords() {
