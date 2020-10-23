@@ -24,3 +24,4 @@ centered.xyz
 *.xml
 .idea/.name
 jpc.iml
+*.ply
