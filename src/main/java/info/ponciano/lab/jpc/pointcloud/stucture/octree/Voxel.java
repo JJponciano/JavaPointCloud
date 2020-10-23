@@ -36,7 +36,7 @@ import java.io.Serializable;
  *
  * @author jean-jacques.ponciano
  */
-public class Voxel extends Box implements Serializable{
+public class Voxel extends Box implements Serializable {
 
     protected PointCloudMap cloud;
     protected Point mean;
@@ -120,7 +120,9 @@ public class Voxel extends Box implements Serializable{
 //        this.cloud.add(points);
 //        this.calculatesMean();
         points.forEach(p -> {
-           if(!this.add(p)) System.err.println("point cannot be added");
+            if (!this.add(p)) {
+                System.err.println("point cannot be added");
+            }
         });
     }
 
@@ -191,7 +193,7 @@ public class Voxel extends Box implements Serializable{
 //                    d.addObject(voxels.get(0).getView());
 //                }
 //                d.run();
-                 throw new InternalError("Point not added!");
+                throw new InternalError("Point not added!");
                 // throw new InternalError("A point is lost...");
             }
         });
@@ -291,23 +293,26 @@ public class Voxel extends Box implements Serializable{
     public double getDensity() {
         return this.getVolume() / (double) (this.pointCount());
     }
-      /**
-     * Get the optimal distance between two points in the voxel to determine if they are close 
+
+    /**
+     * Get the optimal distance between two points in the voxel to determine if
+     * they are close
+     *
      * @return distance maximum distance between to point to consider both point
      * as close.
      */
     public double getOptimalPointSpace() {
         double density = this.getVolume() / (double) (this.pointCount());
-        return Math.cbrt(density)*2;
+        return Math.cbrt(density) * 2;
     }
+
     /**
-     * Returns maximum Euclidean distance to consider normals as
-     * similar.
-     * @return maximum Euclidean distance to consider normals as
-     * similar.
+     * Returns maximum Euclidean distance to consider normals as similar.
+     *
+     * @return maximum Euclidean distance to consider normals as similar.
      */
-     public double getOptimalNormal() {
-         return this.cloud.getOptimalNormal();
+    public double getOptimalNormal() {
+        return this.cloud.getOptimalNormal();
     }
 
     /**
@@ -345,6 +350,31 @@ public class Voxel extends Box implements Serializable{
      */
     public int size() {
         return this.cloud.size();
+    }
+
+    public String getPlyWithComment(String commentsLine) {
+        String ply = "ply\n"
+                + "format ascii 1.0\n"
+                + "comment made by JavaPointCloud library\n"
+                +"comment "+ commentsLine + "\n"
+                + "element vertex 8\n"
+                + "property double x\n"
+                + "property double y\n"
+                + "property double z\n"
+                + "element face 6\n"
+                + "property list uchar int vertex_index\n"
+                + "end_header\n";
+        for (Point point : points) {
+            ply += point.getCoords().getX() + " " + point.getCoords().getY() + " " + point.getCoords().getZ() + "\n";
+        }
+        ply += "4 0 2 3 1\n";
+        ply += "4 2 6 7 3\n";
+        ply += "4 6 4 5 7\n";
+        ply += "4 4 0 1 5\n";
+        ply += "4 1 3 7 5\n";
+        ply += "4 0 4 6 2\n";
+
+        return ply;
     }
 
 }
