@@ -9,7 +9,7 @@ Then clone or download the source code, go to the directory where the "pom.xml" 
 ```
 mvn install
 ```
-Or simply add the following dependency to your pom.xml file :
+Or you can simply add the following dependency to your pom.xml file :
 ```
 <dependency>
   <groupId>info.ponciano.lab</groupId>
